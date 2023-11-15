@@ -1,0 +1,8 @@
+com\evan\mall\common\execption\GmallException.class
+com\evan\mall\common\result\ResultCodeEnum.class
+com\evan\mall\common\util\MD5.class
+com\evan\mall\common\util\DateUtil.class
+com\evan\mall\common\util\IpUtil.class
+com\evan\mall\common\util\HttpClientUtil.class
+com\evan\mall\common\util\AuthContextHolder.class
+com\evan\mall\common\result\Result.class
