@@ -1,6 +1,6 @@
 use gmall_product;
 SET
-FOREIGN_KEY_CHECKS=0;
+    FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for `base_attr_info`
@@ -8,15 +8,18 @@ FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `base_attr_info`;
 CREATE TABLE `base_attr_info`
 (
-    `id`             bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `id`             bigint(20)   NOT NULL AUTO_INCREMENT COMMENT '编号',
     `attr_name`      varchar(100) NOT NULL COMMENT '属性名称',
-    `category_id`    bigint(20) DEFAULT NULL COMMENT '分类id',
-    `category_level` int(11) DEFAULT NULL COMMENT '分类层级',
+    `category_id`    bigint(20)            DEFAULT NULL COMMENT '分类id',
+    `category_level` int(11)               DEFAULT NULL COMMENT '分类层级',
     `create_time`    timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_deleted`     tinyint(3) NOT NULL DEFAULT '0',
+    `is_deleted`     tinyint(3)   NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='属性表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 111
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='属性表';
 
 -- ----------------------------
 -- Records of base_attr_info
@@ -112,14 +115,17 @@ VALUES ('110', '功效', '477', '3', '2021-08-13 15:18:40', '2021-08-13 15:18:40
 DROP TABLE IF EXISTS `base_attr_value`;
 CREATE TABLE `base_attr_value`
 (
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `id`          bigint(20)   NOT NULL AUTO_INCREMENT COMMENT '编号',
     `value_name`  varchar(100) NOT NULL COMMENT '属性值名称',
-    `attr_id`     bigint(20) DEFAULT NULL COMMENT '属性id',
+    `attr_id`     bigint(20)            DEFAULT NULL COMMENT '属性id',
     `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_deleted`  tinyint(3) NOT NULL DEFAULT '0',
+    `is_deleted`  tinyint(3)   NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='属性值表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 180
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='属性值表';
 
 -- ----------------------------
 -- Records of base_attr_value
@@ -334,11 +340,14 @@ CREATE TABLE `base_category_trademark`
     `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
     `category3_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '三级级分类id',
     `trademark_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '品牌id',
-    `create_time`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `create_time`  timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`   tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='三级分类表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 12
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='三级分类表';
 
 -- ----------------------------
 -- Records of base_category_trademark
@@ -372,13 +381,16 @@ VALUES ('11', '61', '2', '2021-09-10 03:46:41', '2021-09-10 03:46:41', '0');
 DROP TABLE IF EXISTS `base_category1`;
 CREATE TABLE `base_category1`
 (
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `id`          bigint(20)  NOT NULL AUTO_INCREMENT COMMENT '编号',
     `name`        varchar(10) NOT NULL COMMENT '分类名称',
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_deleted`  tinyint(3) NOT NULL DEFAULT '0',
+    `is_deleted`  tinyint(3)  NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='一级分类表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 37
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='一级分类表';
 
 -- ----------------------------
 -- Records of base_category1
@@ -421,14 +433,17 @@ VALUES ('15', '珠宝', '2021-08-13 15:18:40', '2021-08-13 15:18:40', '0');
 DROP TABLE IF EXISTS `base_category2`;
 CREATE TABLE `base_category2`
 (
-    `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT '编号',
     `name`         varchar(200) NOT NULL COMMENT '二级分类名称',
-    `category1_id` bigint(20) DEFAULT NULL COMMENT '一级分类编号',
+    `category1_id` bigint(20)            DEFAULT NULL COMMENT '一级分类编号',
     `create_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_deleted`   tinyint(3) NOT NULL DEFAULT '0',
+    `is_deleted`   tinyint(3)   NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='二级分类表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 127
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='二级分类表';
 
 -- ----------------------------
 -- Records of base_category2
@@ -686,14 +701,17 @@ VALUES ('126', 'string', '1', '2021-08-13 15:18:41', '2021-08-13 15:18:41', '0')
 DROP TABLE IF EXISTS `base_category3`;
 CREATE TABLE `base_category3`
 (
-    `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT '编号',
     `name`         varchar(200) NOT NULL COMMENT '三级分类名称',
-    `category2_id` bigint(20) DEFAULT NULL COMMENT '二级分类编号',
+    `category2_id` bigint(20)            DEFAULT NULL COMMENT '二级分类编号',
     `create_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_deleted`   tinyint(3) NOT NULL DEFAULT '0',
+    `is_deleted`   tinyint(3)   NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1114 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='三级分类表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1114
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='三级分类表';
 
 -- ----------------------------
 -- Records of base_category3
@@ -2917,13 +2935,16 @@ VALUES ('1113', '滴露消毒酒精', '122', '2021-08-13 15:18:41', '2021-08-13 
 DROP TABLE IF EXISTS `base_sale_attr`;
 CREATE TABLE `base_sale_attr`
 (
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `id`          bigint(20)  NOT NULL AUTO_INCREMENT COMMENT '编号',
     `name`        varchar(20) NOT NULL COMMENT '销售属性名称',
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_deleted`  tinyint(3) NOT NULL DEFAULT '0',
+    `is_deleted`  tinyint(3)  NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='基本销售属性表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 4
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='基本销售属性表';
 
 -- ----------------------------
 -- Records of base_sale_attr
@@ -2941,14 +2962,17 @@ VALUES ('3', '尺码', '2021-08-13 15:18:41', '2021-08-13 15:18:41', '0');
 DROP TABLE IF EXISTS `base_trademark`;
 CREATE TABLE `base_trademark`
 (
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `id`          bigint(20)   NOT NULL AUTO_INCREMENT COMMENT '编号',
     `tm_name`     varchar(100) NOT NULL COMMENT '属性值',
     `logo_url`    varchar(200)          DEFAULT NULL COMMENT '品牌logo的图片路径',
     `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_deleted`  tinyint(3) NOT NULL DEFAULT '0',
+    `is_deleted`  tinyint(3)   NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='品牌表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 7
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='品牌表';
 
 -- ----------------------------
 -- Records of base_trademark
@@ -2978,14 +3002,17 @@ DROP TABLE IF EXISTS `sku_attr_value`;
 CREATE TABLE `sku_attr_value`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-    `attr_id`     bigint(20) DEFAULT NULL COMMENT '属性id（冗余)',
-    `value_id`    bigint(20) DEFAULT NULL COMMENT '属性值id',
-    `sku_id`      bigint(20) DEFAULT NULL COMMENT 'skuid',
-    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `attr_id`     bigint(20)          DEFAULT NULL COMMENT '属性id（冗余)',
+    `value_id`    bigint(20)          DEFAULT NULL COMMENT '属性值id',
+    `sku_id`      bigint(20)          DEFAULT NULL COMMENT 'skuid',
+    `create_time` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`  tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='sku平台属性值关联表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 17
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='sku平台属性值关联表';
 
 -- ----------------------------
 -- Records of sku_attr_value
@@ -3030,16 +3057,19 @@ DROP TABLE IF EXISTS `sku_image`;
 CREATE TABLE `sku_image`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-    `sku_id`      bigint(20) DEFAULT NULL COMMENT '商品id',
-    `img_name`    varchar(200)       DEFAULT NULL COMMENT '图片名称（冗余）',
-    `img_url`     varchar(300)       DEFAULT NULL COMMENT '图片路径(冗余)',
-    `spu_img_id`  bigint(20) DEFAULT NULL COMMENT '商品图片id',
-    `is_default`  varchar(4000)      DEFAULT NULL COMMENT '是否默认',
-    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `sku_id`      bigint(20)          DEFAULT NULL COMMENT '商品id',
+    `img_name`    varchar(200)        DEFAULT NULL COMMENT '图片名称（冗余）',
+    `img_url`     varchar(300)        DEFAULT NULL COMMENT '图片路径(冗余)',
+    `spu_img_id`  bigint(20)          DEFAULT NULL COMMENT '商品图片id',
+    `is_default`  varchar(4000)       DEFAULT NULL COMMENT '是否默认',
+    `create_time` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`  tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='库存单元图片表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 21
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='库存单元图片表';
 
 -- ----------------------------
 -- Records of sku_image
@@ -3112,20 +3142,23 @@ DROP TABLE IF EXISTS `sku_info`;
 CREATE TABLE `sku_info`
 (
     `id`              bigint(20) NOT NULL AUTO_INCREMENT COMMENT '库存id(itemID)',
-    `spu_id`          bigint(20) DEFAULT NULL COMMENT '商品id',
-    `price`           decimal(10, 0)     DEFAULT NULL COMMENT '价格',
-    `sku_name`        varchar(200)       DEFAULT NULL COMMENT 'sku名称',
-    `sku_desc`        varchar(2000)      DEFAULT NULL COMMENT '商品规格描述',
-    `weight`          decimal(10, 2)     DEFAULT NULL COMMENT '重量',
-    `tm_id`           bigint(20) DEFAULT NULL COMMENT '品牌(冗余)',
-    `category3_id`    bigint(20) DEFAULT NULL COMMENT '三级分类id（冗余)',
-    `sku_default_img` varchar(300)       DEFAULT NULL COMMENT '默认显示图片(冗余)',
+    `spu_id`          bigint(20)          DEFAULT NULL COMMENT '商品id',
+    `price`           decimal(10, 0)      DEFAULT NULL COMMENT '价格',
+    `sku_name`        varchar(200)        DEFAULT NULL COMMENT 'sku名称',
+    `sku_desc`        varchar(2000)       DEFAULT NULL COMMENT '商品规格描述',
+    `weight`          decimal(10, 2)      DEFAULT NULL COMMENT '重量',
+    `tm_id`           bigint(20)          DEFAULT NULL COMMENT '品牌(冗余)',
+    `category3_id`    bigint(20)          DEFAULT NULL COMMENT '三级分类id（冗余)',
+    `sku_default_img` varchar(300)        DEFAULT NULL COMMENT '默认显示图片(冗余)',
     `is_sale`         tinyint(3) NOT NULL DEFAULT '0' COMMENT '是否销售（1：是 0：否）',
-    `create_time`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `create_time`     timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`      tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='库存单元表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 21
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='库存单元表';
 
 -- ----------------------------
 -- Records of sku_info
@@ -3154,14 +3187,17 @@ DROP TABLE IF EXISTS `sku_sale_attr_value`;
 CREATE TABLE `sku_sale_attr_value`
 (
     `id`                 bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `sku_id`             bigint(20) DEFAULT NULL COMMENT '库存单元id',
-    `spu_id`             int(11) DEFAULT NULL COMMENT 'spu_id(冗余)',
-    `sale_attr_value_id` bigint(20) DEFAULT NULL COMMENT '销售属性值id',
-    `create_time`        timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`        timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `sku_id`             bigint(20)          DEFAULT NULL COMMENT '库存单元id',
+    `spu_id`             int(11)             DEFAULT NULL COMMENT 'spu_id(冗余)',
+    `sale_attr_value_id` bigint(20)          DEFAULT NULL COMMENT '销售属性值id',
+    `create_time`        timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`        timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`         tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='sku销售属性值';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 9
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='sku销售属性值';
 
 -- ----------------------------
 -- Records of sku_sale_attr_value
@@ -3190,14 +3226,17 @@ DROP TABLE IF EXISTS `spu_image`;
 CREATE TABLE `spu_image`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-    `spu_id`      bigint(20) DEFAULT NULL COMMENT '商品id',
-    `img_name`    varchar(200)       DEFAULT NULL COMMENT '图片名称',
-    `img_url`     varchar(300)       DEFAULT NULL COMMENT '图片路径',
-    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `spu_id`      bigint(20)          DEFAULT NULL COMMENT '商品id',
+    `img_name`    varchar(200)        DEFAULT NULL COMMENT '图片名称',
+    `img_url`     varchar(300)        DEFAULT NULL COMMENT '图片路径',
+    `create_time` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`  tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5515 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品图片表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 5515
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='商品图片表';
 
 -- ----------------------------
 -- Records of spu_image
@@ -3270,15 +3309,18 @@ DROP TABLE IF EXISTS `spu_info`;
 CREATE TABLE `spu_info`
 (
     `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品id',
-    `spu_name`     varchar(200)       DEFAULT NULL COMMENT '商品名称',
-    `description`  varchar(1000)      DEFAULT NULL COMMENT '商品描述(后台简述）',
-    `category3_id` bigint(20) DEFAULT NULL COMMENT '三级分类id',
-    `tm_id`        bigint(20) DEFAULT NULL COMMENT '品牌id',
-    `create_time`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `spu_name`     varchar(200)        DEFAULT NULL COMMENT '商品名称',
+    `description`  varchar(1000)       DEFAULT NULL COMMENT '商品描述(后台简述）',
+    `category3_id` bigint(20)          DEFAULT NULL COMMENT '三级分类id',
+    `tm_id`        bigint(20)          DEFAULT NULL COMMENT '品牌id',
+    `create_time`  timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`   tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 8
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='商品表';
 
 -- ----------------------------
 -- Records of spu_info
@@ -3296,14 +3338,17 @@ DROP TABLE IF EXISTS `spu_poster`;
 CREATE TABLE `spu_poster`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-    `spu_id`      bigint(20) DEFAULT NULL COMMENT '商品id',
-    `img_name`    varchar(200)       DEFAULT NULL COMMENT '文件名称',
-    `img_url`     varchar(200)       DEFAULT NULL COMMENT '文件路径',
-    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `spu_id`      bigint(20)          DEFAULT NULL COMMENT '商品id',
+    `img_name`    varchar(200)        DEFAULT NULL COMMENT '文件名称',
+    `img_url`     varchar(200)        DEFAULT NULL COMMENT '文件路径',
+    `create_time` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`  tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品海报表';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 7
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='商品海报表';
 
 -- ----------------------------
 -- Records of spu_poster
@@ -3334,14 +3379,17 @@ DROP TABLE IF EXISTS `spu_sale_attr`;
 CREATE TABLE `spu_sale_attr`
 (
     `id`                bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号(业务中无关联)',
-    `spu_id`            bigint(20) DEFAULT NULL COMMENT '商品id',
-    `base_sale_attr_id` bigint(20) DEFAULT NULL COMMENT '销售属性id',
-    `sale_attr_name`    varchar(20)        DEFAULT NULL COMMENT '销售属性名称(冗余)',
-    `create_time`       timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`       timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `spu_id`            bigint(20)          DEFAULT NULL COMMENT '商品id',
+    `base_sale_attr_id` bigint(20)          DEFAULT NULL COMMENT '销售属性id',
+    `sale_attr_name`    varchar(20)         DEFAULT NULL COMMENT '销售属性名称(冗余)',
+    `create_time`       timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`       timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`        tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5208 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='spu销售属性';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 5208
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='spu销售属性';
 
 -- ----------------------------
 -- Records of spu_sale_attr
@@ -3362,15 +3410,18 @@ DROP TABLE IF EXISTS `spu_sale_attr_value`;
 CREATE TABLE `spu_sale_attr_value`
 (
     `id`                   bigint(20) NOT NULL AUTO_INCREMENT COMMENT '销售属性值编号',
-    `spu_id`               bigint(20) DEFAULT NULL COMMENT '商品id',
-    `base_sale_attr_id`    bigint(20) DEFAULT NULL COMMENT '销售属性id',
-    `sale_attr_value_name` varchar(20)        DEFAULT NULL COMMENT '销售属性值名称',
-    `sale_attr_name`       varchar(20)        DEFAULT NULL COMMENT '销售属性名称(冗余)',
-    `create_time`          timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`          timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `spu_id`               bigint(20)          DEFAULT NULL COMMENT '商品id',
+    `base_sale_attr_id`    bigint(20)          DEFAULT NULL COMMENT '销售属性id',
+    `sale_attr_value_name` varchar(20)         DEFAULT NULL COMMENT '销售属性值名称',
+    `sale_attr_name`       varchar(20)         DEFAULT NULL COMMENT '销售属性名称(冗余)',
+    `create_time`          timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`          timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `is_deleted`           tinyint(3) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3724 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='spu销售属性值';
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 3724
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='spu销售属性值';
 
 -- ----------------------------
 -- Records of spu_sale_attr_value
@@ -3396,8 +3447,7 @@ VALUES ('3723', '7', '2', '8G+256G', '版本', '2021-09-10 08:15:27', '2021-09-1
 -- View structure for `base_category_view`
 -- ----------------------------
 DROP VIEW IF EXISTS `base_category_view`;
-CREATE
-ALGORITHM=UNDEFINED DEFINER=`sph_mall`@`%` SQL SECURITY DEFINER VIEW `base_category_view` AS
+CREATE ALGORITHM = UNDEFINED DEFINER =`sph_mall`@`%` SQL SECURITY DEFINER VIEW `base_category_view` AS
 select `base_category3`.`id`   AS `id`,
        `base_category1`.`id`   AS `category1_id`,
        `base_category1`.`name` AS `category1_name`,
@@ -3405,15 +3455,15 @@ select `base_category3`.`id`   AS `id`,
        `base_category2`.`name` AS `category2_name`,
        `base_category3`.`id`   AS `category3_id`,
        `base_category3`.`name` AS `category3_name`
-from ((`base_category1` join `base_category2` on ((`base_category1`.`id` = `base_category2`.`category1_id`))) join `base_category3`
+from ((`base_category1` join `base_category2`
+       on ((`base_category1`.`id` = `base_category2`.`category1_id`))) join `base_category3`
       on ((`base_category2`.`id` = `base_category3`.`category2_id`)));
 
 -- ----------------------------
 -- View structure for `v_category`
 -- ----------------------------
 DROP VIEW IF EXISTS `v_category`;
-CREATE
-ALGORITHM=UNDEFINED DEFINER=`sph_mall`@`%` SQL SECURITY DEFINER VIEW `v_category` AS
+CREATE ALGORITHM = UNDEFINED DEFINER =`sph_mall`@`%` SQL SECURITY DEFINER VIEW `v_category` AS
 select `c3`.`id`   AS `id`,
        `c1`.`id`   AS `category1Id`,
        `c1`.`name` AS `category1Name`,
