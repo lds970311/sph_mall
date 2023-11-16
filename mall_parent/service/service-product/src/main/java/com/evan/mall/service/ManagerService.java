@@ -29,4 +29,20 @@ public interface ManagerService {
      * @return
      */
     List<BaseAttrInfo> getAttrInfo(String category1Id, String category2Id, String category3Id);
+
+    /**
+     * 保存平台属性(新增/添加)
+     *
+     * @param baseAttrInfo
+     * @return
+     */
+    boolean saveBaseAttrInfo(BaseAttrInfo baseAttrInfo);
+
+    /**
+     * 根据属性id查找属性列表
+     *
+     * @param attrId
+     * @return
+     */
+    BaseAttrInfo getAttrInfoById(Long attrId);
 }

@@ -1,8 +1,10 @@
 package com.evan.mall.common.result;
 
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
 
 /**
  * 全局统一返回结果类
