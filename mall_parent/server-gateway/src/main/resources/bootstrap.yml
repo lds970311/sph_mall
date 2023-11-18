@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: server-gateway
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: hadoop133:8848
+        prefix: ${spring.application.name}
+        file-extension: yaml
+      discovery:
+        server-addr: hadoop133:8848

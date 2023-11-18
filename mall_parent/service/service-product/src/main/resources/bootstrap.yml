@@ -1,0 +1,17 @@
+server:
+  port: 8206
+spring:
+  application:
+    name: service-product
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: hadoop133:8848
+        prefix: ${spring.application.name}
+        file-extension: yaml
+        shared-configs[0]:
+          data-id: common.yaml
+      discovery:
+        server-addr: hadoop133:8848

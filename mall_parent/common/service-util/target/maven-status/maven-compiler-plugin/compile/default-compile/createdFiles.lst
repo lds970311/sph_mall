@@ -1,8 +1,0 @@
-com\evan\mall\common\cache\GmallCache.class
-com\evan\mall\common\cache\GmallCacheAspect.class
-com\evan\mall\common\config\RedissonConfig.class
-com\evan\mall\common\handler\GlobalExceptionHandler.class
-com\evan\mall\common\constant\RedisConst.class
-com\evan\mall\common\config\Swagger2Config.class
-com\evan\mall\common\config\MybatisPlusConfig.class
-com\evan\mall\common\config\RedisConfig.class
