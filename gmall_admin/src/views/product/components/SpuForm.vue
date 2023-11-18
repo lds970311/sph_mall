@@ -20,7 +20,7 @@
       <el-input v-model="spuForm.description" :rows="5" type="textarea"/>
     </el-form-item>
 
-    <el-form-item label="上传图片" >
+    <el-form-item label="上传图片">
       <el-upload
         :on-success="onUploadSuccess"
         :before-upload="beforeUpload"
@@ -89,21 +89,23 @@
               class="input-new-tag"
               size="small"
               @keyup.enter.native="saveAttrValue(scope.row)"
-              @blur="saveAttrValue(scope.row)" />
+              @blur="saveAttrValue(scope.row)"/>
             <el-button v-else class="button-new-tag" size="small" @click="editAttrValue(scope.row)">+ 添加</el-button>
 
-        </template></el-table-column>
+          </template>
+        </el-table-column>
 
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope">
-            <el-button type="danger" size="mini" icon="el-icon-edit" @click="deleteSaleAttr(scope.row.saleAttr)">删除</el-button>
+            <el-button type="danger" size="mini" icon="el-icon-edit" @click="deleteSaleAttr(scope.row.saleAttr)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
 
     <div style="margin-top: 10px">&nbsp;</div>
-    <el-form-item label="上传海报" >
+    <el-form-item label="上传海报">
       <el-upload
         :on-success="onUploadPosterSuccess"
         :before-upload="beforeUpload"
@@ -141,7 +143,7 @@ export default {
 
   props: {
     category3Id: {
-      type: String,
+      type: Number,
       default: null
     }
   },
@@ -215,7 +217,6 @@ export default {
 
     // 获取品牌列表
     getTrademarkList() {
-      debugger
       // 查询数据
       categoryTrademarkApi.findTrademarkList(this.category3Id).then(response => {
         this.trademarkList = response.data
@@ -381,18 +382,20 @@ export default {
 
 <style scoped>
 .el-tag + .el-tag {
-    margin-left: 10px;
-  }
-  .button-new-tag {
-    margin-left: 10px;
-    height: 32px;
-    line-height: 30px;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  .input-new-tag {
-    width: 90px;
-    margin-left: 10px;
-    vertical-align: bottom;
-  }
+  margin-left: 10px;
+}
+
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
 </style>

@@ -2,8 +2,10 @@
   <div class="app-container">
 
     <!-- 工具条 -->
-    <div>
-      <el-button type="danger" size="mini" @click="add()">添加</el-button>
+    <div class="tool-buttons">
+      <el-button type="primary" size="mini" @click="add()">添加</el-button>
+
+      <el-button type="danger" size="mini" @click="batchDelete">批量删除</el-button>
     </div>
 
     <!-- banner列表 -->
@@ -16,7 +18,7 @@
 
       <el-table-column
         type="selection"
-        width="55" />
+        width="55"/>
 
       <el-table-column
         label="序号"
@@ -37,7 +39,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="tmName" label="名称" />
+      <el-table-column prop="tmName" label="名称"/>
 
       <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
@@ -81,16 +83,39 @@ export default {
 
   // 生命周期函数：内存准备完毕，页面尚未渲染
   created() {
-    console.log('list created......')
     this.fetchData()
   },
 
   // 生命周期函数：内存准备完毕，页面渲染成功
   mounted() {
-    console.log('list mounted......')
+
   },
 
   methods: {
+    //批量删除
+    batchDelete() {
+      this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const ids = this.multipleSelection.map(item => item.id)
+        return trademarkApi.batchDelete(ids)
+      }).then(res => {
+        this.fetchData(this.page)
+        if (res.code) {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
 
     // 当页码发生改变的时候
     changeSize(size) {
@@ -99,7 +124,7 @@ export default {
       this.fetchData(1)
     },
 
-    add(){
+    add() {
       this.$router.push({ path: '/baseinfo/trademark/add' })
     },
 
@@ -111,7 +136,6 @@ export default {
 
       trademarkApi.getPageList(this.page, this.limit, this.searchObj).then(
         response => {
-          debugger
           this.list = response.data.records
           this.total = response.data.total
 
@@ -130,7 +154,6 @@ export default {
 
     // 根据id删除数据
     removeDataById(id) {
-      // debugger
       this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -183,7 +206,7 @@ export default {
         var idList = []
         this.multipleSelection.forEach(item => {
           idList.push(item.id)
-        // console.log(idList)
+          // console.log(idList)
         })
         // 调用api
         return trademarkApi.removeRows(idList)
@@ -206,3 +229,9 @@ export default {
 }
 </script>
 
+
+<style lang="scss" scoped>
+.tool-buttons {
+  margin-bottom: 16px;
+}
+</style>

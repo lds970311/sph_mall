@@ -52,5 +52,12 @@ export default {
       url: `${api_name}/findBaseTrademarkByKeyword/${keyword}`,
       method: 'get'
     })
+  },
+  batchDelete(ids) {
+    return request({
+      url: `${api_name}/batchDelete`,
+      method: 'delete',
+      data: ids
+    })
   }
 }

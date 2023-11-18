@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form label-width="120px">
-      <el-form-item label="标题">
+      <el-form-item label="品牌名称">
         <el-input v-model="trademark.tmName"/>
       </el-form-item>
 
@@ -14,7 +14,7 @@
           class="avatar-uploader">
           <img :src="trademark.logoUrl">
         </el-upload>
-        
+
       </el-form-item>
 
       <el-form-item>
@@ -98,7 +98,6 @@ export default {
     // 根据id更新记录
     updateData() {
       trademarkApi.updateById(this.trademark).then(response => {
-        debugger
         if (response.code) {
           this.$message({
             type: 'success',

@@ -2,7 +2,7 @@
   <div class="app-container">
 
     <!--三级下拉列表-->
-    <CategorySelector v-show="!showSkuForm" @listenOnSelect="getSpuList" />
+    <CategorySelector v-show="!showSkuForm" @listenOnSelect="getSpuList"/>
 
     <!--spu列表-->
     <div v-show="!showSpuForm && !showSkuForm">
@@ -40,7 +40,9 @@
 
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-plus" @click="addSku(scope.row.id, scope.row.spuName, scope.row.tmId)">添加SKU</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-plus"
+                       @click="addSku(scope.row.id, scope.row.spuName, scope.row.tmId)">添加SKU
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -114,6 +116,8 @@ export default {
 
       // sku表单显示
       showSkuForm: false,
+
+      categoryId: null,
 
       // 选中的spu
       selectedSpu: {
