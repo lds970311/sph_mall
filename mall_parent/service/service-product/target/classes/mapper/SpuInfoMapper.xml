@@ -5,14 +5,14 @@
 <mapper namespace="com.evan.mall.mapper.SpuInfoMapper">
 
     <resultMap id="BaseResultMap" type="com.evan.mall.product.SpuInfo">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="spuName" column="spu_name" jdbcType="VARCHAR"/>
-            <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="category3Id" column="category3_id" jdbcType="BIGINT"/>
-            <result property="tmId" column="tm_id" jdbcType="BIGINT"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="spuName" column="spu_name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="category3Id" column="category3_id" jdbcType="BIGINT"/>
+        <result property="tmId" column="tm_id" jdbcType="BIGINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

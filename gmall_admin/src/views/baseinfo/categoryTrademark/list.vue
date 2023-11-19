@@ -2,7 +2,7 @@
   <div class="app-container">
 
     <!--三级下拉列表-->
-    <CategorySelector @listenOnSelect="getAttrInfoList" />
+    <CategorySelector @listenOnSelect="getAttrInfoList"/>
 
     <div v-show="!showAttrInfoForm">
       <div style="margin-bottom:10px;">
@@ -33,17 +33,18 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="tmName" label="名称" />
+        <el-table-column prop="tmName" label="名称"/>
 
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="mini" icon="el-icon-delete" @click="removeDataById(scope.row.id)">删除</el-button>
+            <el-button type="danger" size="mini" icon="el-icon-delete" @click="removeDataById(scope.row.id)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
 
-    <el-dialog title="添加品牌" :visible.sync="dialogVisible" width="40%" >
+    <el-dialog title="添加品牌" :visible.sync="dialogVisible" width="40%">
       <el-form ref="flashPromotionForm" label-width="150px" size="small" style="padding-right: 40px;">
 
         <el-table
@@ -65,7 +66,7 @@
               {{ scope.$index + 1 }}
             </template>
           </el-table-column>
-          <el-table-column prop="tmName" label="名称" />
+          <el-table-column prop="tmName" label="名称"/>
         </el-table>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -104,16 +105,6 @@ export default {
     }
   },
 
-  // 生命周期函数：内存准备完毕，页面尚未渲染
-  created() {
-    console.log('list created......')
-  },
-
-  // 生命周期函数：内存准备完毕，页面渲染成功
-  mounted() {
-    console.log('list mounted......')
-  },
-
   methods: {
     getAttrInfoList(categoryId, categoryLevel) {
       if (categoryLevel === 3) {
@@ -142,7 +133,7 @@ export default {
     },
 
     save() {
-      var idList = []
+      const idList = []
       this.multipleSelection.forEach(item => {
         idList.push(item.id)
       })
@@ -165,7 +156,6 @@ export default {
       this.listLoading = true
       categoryTrademarkApi.findTrademarkList(this.category3Id).then(
         response => {
-          debugger
           this.list = response.data
 
           // 数据加载并绑定成功
@@ -191,7 +181,6 @@ export default {
 
     // 根据id删除数据
     removeDataById(id) {
-      // debugger
       this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
