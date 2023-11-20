@@ -4,6 +4,8 @@ package com.evan.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.evan.mall.product.SpuSaleAttr;
 
+import java.util.List;
+
 /**
  * @author 26966
  * @description 针对表【spu_sale_attr(spu销售属性)】的数据库操作Service
@@ -11,4 +13,5 @@ import com.evan.mall.product.SpuSaleAttr;
  */
 public interface SpuSaleAttrService extends IService<SpuSaleAttr> {
 
+    List<SpuSaleAttr> findSaleAttrList(Long spuId);
 }

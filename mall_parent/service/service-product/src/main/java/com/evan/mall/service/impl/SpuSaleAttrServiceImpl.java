@@ -6,6 +6,8 @@ import com.evan.mall.product.SpuSaleAttr;
 import com.evan.mall.service.SpuSaleAttrService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 26966
  * @description 针对表【spu_sale_attr(spu销售属性)】的数据库操作Service实现
@@ -15,6 +17,10 @@ import org.springframework.stereotype.Service;
 public class SpuSaleAttrServiceImpl extends ServiceImpl<SpuSaleAttrMapper, SpuSaleAttr>
         implements SpuSaleAttrService {
 
+    @Override
+    public List<SpuSaleAttr> findSaleAttrList(Long spuId) {
+        return this.baseMapper.findSaleAttrList(spuId);
+    }
 }
 
 

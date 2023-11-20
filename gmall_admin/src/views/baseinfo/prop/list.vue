@@ -2,7 +2,7 @@
   <div class="app-container">
 
     <!--三级下拉列表-->
-    <CategorySelector @listenOnSelect="getAttrInfoList" />
+    <CategorySelector @listenOnSelect="getAttrInfoList"/>
 
     <!--属性列表-->
     <div v-show="!showAttrInfoForm">
@@ -35,7 +35,11 @@
 
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope">
-            <el-button v-if="categoryLevel === scope.row.categoryLevel" type="primary" size="mini" icon="el-icon-edit" @click="editAttrInfoById(scope.row.id, scope.row.attrName)">修改</el-button>
+            <!--            <el-button v-if="categoryLevel === scope.row.categoryLevel" type="primary" size="mini" icon="el-icon-edit"-->
+            <!--                       @click="editAttrInfoById(scope.row.id, scope.row.attrName)">修改-->
+            <el-button v-if="categoryLevel === scope.row.categoryLevel" type="primary" size="mini" icon="el-icon-edit"
+                       @click="editAttrInfoById(scope.row.id, scope.row.attrName)">修改
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -81,7 +85,7 @@
                 class="edit-input"
                 size="mini"
                 @keyup.enter.native="saveAttrValue(scope.row)"
-                @blur="saveAttrValue(scope.row)" />
+                @blur="saveAttrValue(scope.row)"/>
               <span
                 v-else
                 @click="editAttrValue(scope.row)">{{ scope.row.valueName }}</span>
@@ -90,7 +94,9 @@
 
           <el-table-column label="操作" width="200" align="center">
             <template slot-scope="scope">
-              <el-button type="danger" size="mini" icon="el-icon-edit" @click="deleteAttrValueByName(scope.row.valueName)">删除</el-button>
+              <el-button type="danger" size="mini" icon="el-icon-edit"
+                         @click="deleteAttrValueByName(scope.row.valueName)">删除
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -263,6 +269,7 @@ export default {
 .edit-input {
   padding-right: 60px;
 }
+
 .save-btn {
   position: absolute;
   right: 15px;

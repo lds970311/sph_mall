@@ -4,19 +4,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.evan.mall.mapper.SpuSaleAttrMapper">
 
-    <resultMap id="BaseResultMap" type="com.evan.mall.product.SpuSaleAttr">
+    <resultMap id="BaseResultMap" type="com.evan.mall.product.SpuSaleAttr" autoMapping="true">
         <id property="id" column="id" jdbcType="BIGINT"/>
-        <result property="spuId" column="spu_id" jdbcType="BIGINT"/>
-        <result property="baseSaleAttrId" column="base_sale_attr_id" jdbcType="BIGINT"/>
-        <result property="saleAttrName" column="sale_attr_name" jdbcType="VARCHAR"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <collection property="spuSaleAttrValueList" ofType="com.evan.mall.product.SpuSaleAttrValue" autoMapping="true">
+            <id column="spu_sale_attr_value_id" property="id"/>
+        </collection>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,spu_id,base_sale_attr_id,
-        sale_attr_name,create_time,update_time,
-        is_deleted
-    </sql>
+
+    <select id="findSaleAttrList" resultMap="BaseResultMap">
+        select ssa.id,
+               ssa.spu_id spu_id,
+               ssa.base_sale_attr_id,
+               ssav.id    spu_sale_attr_value_id,
+               ssa.sale_attr_name,
+               ssav.sale_attr_value_name
+        from spu_sale_attr ssa
+                 inner join spu_sale_attr_value ssav on ssa.base_sale_attr_id = ssav.base_sale_attr_id
+            and ssa.spu_id = ssav.spu_id
+        where ssa.spu_id = #{spuId};
+    </select>
 </mapper>
