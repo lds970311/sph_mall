@@ -71,7 +71,7 @@ import trademarkApi from '@/api/baseinfo/trademark'
 export default {
   data() {
     return {
-      listLoading: true, // 数据是否正在加载
+      listLoading: false, // 数据是否正在加载
       list: null, // banner列表
       total: 0, // 数据库中的总记录数
       page: 1, // 默认页码
@@ -133,6 +133,7 @@ export default {
       console.log('翻页。。。' + page)
       // 异步获取远程数据（ajax）
       this.page = page
+      this.listLoading = true
 
       trademarkApi.getPageList(this.page, this.limit, this.searchObj).then(
         response => {

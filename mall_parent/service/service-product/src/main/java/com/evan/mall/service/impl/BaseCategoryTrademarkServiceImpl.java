@@ -39,9 +39,10 @@ public class BaseCategoryTrademarkServiceImpl extends ServiceImpl<BaseCategoryTr
             trademarkIds = baseCategoryTrademarkList.stream()
                     .map(BaseCategoryTrademark::getTrademarkId)
                     .collect(Collectors.toList());
+            return this.baseTrademarkMapper.selectBatchIds(trademarkIds);
         }
 
-        return this.baseTrademarkMapper.selectBatchIds(trademarkIds);
+        return null;
     }
 
     @Override
@@ -72,9 +73,9 @@ public class BaseCategoryTrademarkServiceImpl extends ServiceImpl<BaseCategoryTr
             LambdaQueryWrapper<BaseTrademark> baseTrademarkLambdaQueryWrapper = new LambdaQueryWrapper<>();
             baseTrademarkLambdaQueryWrapper.notIn(BaseTrademark::getId, trademarkIds);
             baseTrademarkList = this.baseTrademarkMapper.selectList(baseTrademarkLambdaQueryWrapper);
+            return baseTrademarkList;
         }
-
-        return baseTrademarkList;
+        return this.baseTrademarkMapper.selectList(null);
     }
 
     @Override

@@ -3,10 +3,13 @@ package com.evan.mall.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.evan.mall.mapper.SpuInfoMapper;
-import com.evan.mall.product.SpuInfo;
+import com.evan.mall.mapper.*;
+import com.evan.mall.product.*;
 import com.evan.mall.service.SpuInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +23,17 @@ import java.util.Map;
 @Service
 public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
         implements SpuInfoService {
+    @Autowired
+    private SpuSaleAttrMapper spuSaleAttrMapper;
+
+    @Autowired
+    private SpuSaleAttrValueMapper spuSaleAttrValueMapper;
+
+    @Autowired
+    private SpuImageMapper spuImageMapper;
+
+    @Autowired
+    private SpuPosterMapper spuPosterMapper;
 
     @Override
     public Map<String, Object> getSpuInfoPage(Long limit, Long pageNo, Long category3Id) {
@@ -35,6 +49,48 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
         result.put("current", current);
         result.put("total", total);
         return result;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean saveSpuInfo(SpuInfo spuInfo) {
+
+        this.baseMapper.insert(spuInfo);
+        //保存图片
+        List<SpuImage> spuImageList = spuInfo.getSpuImageList();
+        if (!CollectionUtils.isEmpty(spuImageList)) {
+            for (SpuImage spuImage : spuImageList) {
+                spuImage.setSpuId(spuInfo.getId());
+                this.spuImageMapper.insert(spuImage);
+            }
+        }
+        //获取海报
+        List<SpuPoster> spuPosterList = spuInfo.getSpuPosterList();
+        if (!CollectionUtils.isEmpty(spuImageList)) {
+            for (SpuPoster spuPoster : spuPosterList) {
+                spuPoster.setSpuId(spuInfo.getId());
+                this.spuPosterMapper.insert(spuPoster);
+            }
+        }
+        //获取销售属性
+        List<SpuSaleAttr> spuSaleAttrList = spuInfo.getSpuSaleAttrList();
+        if (!CollectionUtils.isEmpty(spuSaleAttrList)) {
+            for (SpuSaleAttr spuSaleAttr : spuSaleAttrList) {
+                spuSaleAttr.setSpuId(spuInfo.getId());
+                this.spuSaleAttrMapper.insert(spuSaleAttr);
+                //保存销售属性值
+                List<SpuSaleAttrValue> spuSaleAttrValueList = spuSaleAttr.getSpuSaleAttrValueList();
+                if (!CollectionUtils.isEmpty(spuSaleAttrValueList)) {
+                    for (SpuSaleAttrValue spuSaleAttrValue : spuSaleAttrValueList) {
+                        spuSaleAttrValue.setSpuId(spuInfo.getId());
+                        spuSaleAttrValue.setSaleAttrName(spuSaleAttr.getSaleAttrName());
+                        this.spuSaleAttrValueMapper.insert(spuSaleAttrValue);
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 }
 

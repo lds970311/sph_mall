@@ -14,4 +14,6 @@ import java.util.Map;
 public interface SpuInfoService extends IService<SpuInfo> {
 
     Map<String, Object> getSpuInfoPage(Long limit, Long pageNo, Long category3Id);
+
+    boolean saveSpuInfo(SpuInfo spuInfo);
 }
