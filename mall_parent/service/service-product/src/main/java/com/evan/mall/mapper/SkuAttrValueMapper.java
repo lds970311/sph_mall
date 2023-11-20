@@ -2,6 +2,7 @@ package com.evan.mall.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.evan.mall.product.SkuAttrValue;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author 26966
@@ -9,6 +10,7 @@ import com.evan.mall.product.SkuAttrValue;
  * @createDate 2023-11-18 00:04:27
  * @Entity com.evan.mall.product.SkuAttrValue
  */
+@Mapper
 public interface SkuAttrValueMapper extends BaseMapper<SkuAttrValue> {
 
 }

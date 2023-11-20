@@ -35,6 +35,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
     @Autowired
     private SpuPosterMapper spuPosterMapper;
 
+
     @Override
     public Map<String, Object> getSpuInfoPage(Long limit, Long pageNo, Long category3Id) {
         Map<String, Object> result = new HashMap<>();
@@ -92,6 +93,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
 
         return true;
     }
+
 }
 
 

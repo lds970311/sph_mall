@@ -269,9 +269,10 @@ export default {
       const isJPG = file.type === 'image/jpeg'
       const isPNG = file.type === 'image/png'
       const isGIF = file.type === 'image/gif'
+      const isWebp = file.type === 'image/webp'
       const isLt2M = file.size / 1024 / 1024 < 2
 
-      if (!isJPG && !isPNG && !isGIF) {
+      if (!isJPG && !isPNG && !isGIF && !isWebp) {
         this.$message.error('上传头像图片只能是 JPG、PNG 或 GIF 格式!')
         return false
       }
@@ -284,7 +285,6 @@ export default {
 
     // 上传图片成功的回调
     onUploadSuccess(res, file) {
-      debugger
       // 填充上传文件列表
       this.spuForm.spuImageList.push({
         imgName: file.name,
@@ -359,7 +359,6 @@ export default {
 
     // 上传图片成功的回调
     onUploadPosterSuccess(res, file) {
-      debugger
       // 填充上传文件列表
       this.spuForm.spuPosterList.push({
         imgName: file.name,

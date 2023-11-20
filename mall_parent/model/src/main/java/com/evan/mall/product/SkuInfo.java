@@ -24,10 +24,13 @@ public class SkuInfo extends BaseEntity {
     private static final long serialVersionUID = 1L;
     @TableField(exist = false)
     List<SkuImage> skuImageList;
+
     @TableField(exist = false)
     List<SkuAttrValue> skuAttrValueList;
+
     @TableField(exist = false)
     List<SkuSaleAttrValue> skuSaleAttrValueList;
+
     @ApiModelProperty(value = "商品id")
     @TableField("spu_id")
     private Long spuId;

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.evan.mall.product.SpuSaleAttr;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author 26966
  * @description 针对表【spu_sale_attr(spu销售属性)】的数据库操作Mapper
@@ -14,6 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SpuSaleAttrMapper extends BaseMapper<SpuSaleAttr> {
 
+    List<SpuSaleAttr> findSaleAttrList(Long spuId);
 }
 
 

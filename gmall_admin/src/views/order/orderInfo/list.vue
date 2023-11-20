@@ -133,7 +133,6 @@ export default {
 
       api.getPageList(this.page, this.limit, this.searchObj).then(
         response => {
-          debugger
           this.list = response.data.records
           this.total = response.data.total
 

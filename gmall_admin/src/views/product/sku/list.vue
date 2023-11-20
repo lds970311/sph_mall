@@ -31,14 +31,17 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="skuName" label="名称" />
+      <el-table-column prop="skuName" label="名称"/>
 
       <el-table-column prop="price" label="价格" width="70"/>
 
       <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.isSale == 0" size="mini" icon="el-icon-edit" @click="onSale(scope.row.id)">上架</el-button>
-          <el-button v-if="scope.row.isSale == 1" type="danger" size="mini" icon="el-icon-delete" @click="cancelSale(scope.row.id)">下架</el-button>
+          <el-button v-if="scope.row.isSale === 0" size="mini" icon="el-icon-edit" @click="onSale(scope.row.id)">上架
+          </el-button>
+          <el-button v-if="scope.row.isSale === 1" type="danger" size="mini" icon="el-icon-delete"
+                     @click="cancelSale(scope.row.id)">下架
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -63,8 +66,8 @@ import sku from '@/api/product/sku'
 export default {
   data() {
     return {
-      listLoading: true, // 数据是否正在加载
-      list: null, // banner列表
+      listLoading: false, // 数据是否正在加载
+      list: [], // banner列表
       total: 0, // 数据库中的总记录数
       page: 1, // 默认页码
       limit: 10, // 每页记录数
@@ -73,15 +76,8 @@ export default {
     }
   },
 
-  // 生命周期函数：内存准备完毕，页面尚未渲染
-  created() {
-    console.log('list created......')
-    this.fetchData()
-  },
-
-  // 生命周期函数：内存准备完毕，页面渲染成功
   mounted() {
-    console.log('list mounted......')
+    this.fetchData()
   },
 
   methods: {
@@ -94,12 +90,12 @@ export default {
 
     // 加载banner列表数据
     fetchData(page = 1) {
-      console.log('翻页。。。' + page)
       // 异步获取远程数据（ajax）
       this.page = page
+      this.listLoading = true
 
       sku.getPageList(this.page, this.limit).then(response => {
-        this.list = response.data.records
+        this.list = response.data.rows
         this.total = response.data.total
 
         // 数据加载并绑定成功

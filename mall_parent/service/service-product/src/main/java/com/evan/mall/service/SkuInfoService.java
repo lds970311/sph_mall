@@ -3,6 +3,8 @@ package com.evan.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.evan.mall.product.SkuInfo;
 
+import java.util.Map;
+
 /**
  * @author 26966
  * @description 针对表【sku_info(库存单元表)】的数据库操作Service
@@ -10,4 +12,9 @@ import com.evan.mall.product.SkuInfo;
  */
 public interface SkuInfoService extends IService<SkuInfo> {
 
+    boolean saveSkuInfo(SkuInfo skuInfo);
+
+    Map<String, Object> getSkuInfoByPage(Long pageNo, Long limit);
+
+    boolean onSale(Long skuId);
 }
