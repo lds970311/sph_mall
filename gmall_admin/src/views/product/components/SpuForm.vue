@@ -27,7 +27,7 @@
         :on-preview="onUploadPreview"
         :on-remove="onUploadRemove"
         :multiple="true"
-        :action="BASE_API+'/admin/product/fileUpload'"
+        :action="BASE_API+'/admin/product/fileUpload/spu'"
         class="upload-demo"
         list-type="picture-card">
         <i class="el-icon-plus"/>
@@ -112,7 +112,7 @@
         :on-preview="onUploadPreview"
         :on-remove="onUploadPosterRemove"
         :multiple="true"
-        :action="BASE_API+'/admin/product/fileUpload'"
+        :action="BASE_API+'/admin/product/fileUpload/poster'"
         class="upload-demo"
         list-type="picture-card">
         <i class="el-icon-plus"/>
@@ -255,6 +255,7 @@ export default {
       spu.saveSpuInfo(this.spuForm).then(response => {
         // 调用父组件监听函数
         this.$emit('listenOnSave')
+        this.spuForm = {}
       })
     },
 

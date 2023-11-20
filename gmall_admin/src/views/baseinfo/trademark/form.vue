@@ -10,7 +10,7 @@
           :show-file-list="false"
           :on-success="handleImageUrlSuccess"
           :before-upload="beforeImageUrlUpload"
-          :action="BASE_API+'/admin/product/fileUpload'"
+          :action="BASE_API+'/admin/product/fileUpload/brand'"
           class="avatar-uploader">
           <img :src="trademark.logoUrl">
         </el-upload>
