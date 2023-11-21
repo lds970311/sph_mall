@@ -1,6 +1,7 @@
 package com.evan.mall.controller;
 
 import com.evan.mall.common.result.Result;
+import com.evan.mall.common.util.DateUtil;
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
@@ -38,10 +39,10 @@ public class FileUploadController {
                 .credentials(this.accessKey, this.secreKey)
                 .build();
 
-
-        String spuFolder = "spu/";
-        String posterFolder = "poster/";
-        String brandFolder = "brand/";
+        String dataString = DateUtil.getCurrentDate();
+        String spuFolder = "spu/" + dataString + "/";
+        String posterFolder = "poster/" + dataString + "/";
+        String brandFolder = "brand/" + dataString + "/";
         String objectName;
         if ("spu".equals(fileType)) {
             objectName = spuFolder + System.currentTimeMillis() + UUID.randomUUID();

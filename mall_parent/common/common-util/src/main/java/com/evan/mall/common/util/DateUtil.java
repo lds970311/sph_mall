@@ -3,6 +3,8 @@ package com.evan.mall.common.util;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -67,5 +69,18 @@ public class DateUtil {
      */
     public Long getTimeSubtract(Date date1, Date date2) {
         return (date1.getTime() - date2.getTime()) / 1000;
+    }
+
+    /**
+     * 获取当日信息
+     *
+     * @return
+     */
+    public static String getCurrentDate() {
+        // 获取当前日期
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+        String format = currentDate.format(formatter);
+        return format;
     }
 }
