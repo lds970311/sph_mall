@@ -35,6 +35,6 @@ from base_attr_info bai
          inner join base_attr_value bav on bai.id = bav.attr_id
 WHERE
     # (bai.category_level = 1 and bai.category_id = 2)
-     (bai.category_level = 2 and bai.category_id = 13)
+    (bai.category_level = 2 and bai.category_id = 13)
 # or (bai.category_level = 3 and bai.category_id = 61)
 order by bai.category_level, bai.id;

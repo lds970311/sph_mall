@@ -91,8 +91,10 @@ public class ManagerServiceImpl implements ManagerService {
         List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
         if (!CollectionUtils.isEmpty(attrValueList)) {
             attrValueList.forEach(attr -> {
-                attr.setAttrId(baseAttrInfo.getId());
-                this.baseAttrValueMapper.insert(attr);
+                BaseAttrValue baseAttrValue = new BaseAttrValue();
+                baseAttrValue.setAttrId(baseAttrInfo.getId());
+                baseAttrValue.setValueName(attr.getValueName());
+                this.baseAttrValueMapper.insert(baseAttrValue);
             });
         }
         return true;
