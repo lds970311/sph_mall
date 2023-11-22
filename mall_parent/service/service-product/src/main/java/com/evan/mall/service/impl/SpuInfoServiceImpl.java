@@ -94,6 +94,14 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
         return true;
     }
 
+    @Override
+    public List<SpuInfo> getAllSpuInfoByCategory3Id(Long category3Id) {
+        LambdaQueryWrapper<SpuInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SpuInfo::getCategory3Id, category3Id);
+        List<SpuInfo> spuInfoList = this.baseMapper.selectList(wrapper);
+        return spuInfoList;
+    }
+
 }
 
 

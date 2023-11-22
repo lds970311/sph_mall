@@ -1,5 +1,6 @@
 package com.evan.mall.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.evan.mall.mapper.SkuAttrValueMapper;
@@ -94,6 +95,26 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         }
         this.baseMapper.updateById(skuInfo);
         return true;
+    }
+
+    @Override
+    public List<SkuInfo> findSkuListBySpuId(Long spuId) {
+        LambdaQueryWrapper<SkuInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SkuInfo::getSpuId, spuId);
+        List<SkuInfo> skuInfoList = this.baseMapper.selectList(wrapper);
+        return skuInfoList;
+    }
+
+    @Override
+    public SkuInfo getSkuInfo(Long skuId) {
+        SkuInfo skuInfo = this.baseMapper.selectById(skuId);
+        if (null == skuInfo) return null;
+        //查找sku图片
+        LambdaQueryWrapper<SkuImage> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SkuImage::getSkuId, skuId);
+        List<SkuImage> skuImages = this.skuImageMapper.selectList(wrapper);
+        skuInfo.setSkuImageList(skuImages);
+        return skuInfo;
     }
 }
 

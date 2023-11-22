@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel(description = "BaseCategoryView")
-@TableName("base_category_view")
+@TableName("base_category_view2")
 public class BaseCategoryView implements Serializable {
 
     private static final long serialVersionUID = 1L;

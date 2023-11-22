@@ -33,6 +33,13 @@ public class SpuManagerController {
         return Result.ok(result);
     }
 
+    @GetMapping("/{category3Id}")
+    @ApiOperation("根据category3Id查询对应的spu")
+    public Result<List<SpuInfo>> getSpuInfo(@PathVariable Long category3Id) {
+        List<SpuInfo> spuInfoList = this.spuInfoService.getAllSpuInfoByCategory3Id(category3Id);
+        return Result.ok(spuInfoList);
+    }
+
 
     @GetMapping("/baseSaleAttrList")
     @ApiOperation("获取基础销售属性")

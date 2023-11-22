@@ -1,6 +1,26 @@
 <template>
   <div class="app-container">
 
+    <!--三级下拉列表-->
+    <CategorySelector @listenOnSelect="getSpuList"/>
+
+    <!--    选择spu-->
+    <el-form :inline="true" class="demo-form-inline">
+
+      <el-form-item label="选择spu">
+        <el-select
+          v-model="spuId"
+          placeholder="请选择"
+          @change="handleSpuChanged">
+          <el-option
+            v-for="spuInfo in spuInfoList"
+            :key="spuInfo.id"
+            :label="spuInfo.spuName"
+            :value="spuInfo.id"/>
+        </el-select>
+      </el-form-item>
+    </el-form>
+
     <!-- banner列表 -->
     <el-table
       v-loading="listLoading"
@@ -15,13 +35,13 @@
         width="70"
         align="center">
         <template slot-scope="scope">
-          {{ (page - 1) * limit + scope.$index + 1 }}
+          {{ scope.$index + 1 }}
         </template>
       </el-table-column>
 
-      <el-table-column prop="id" label="SKU ID" width="100"/>
+      <el-table-column prop="id" label="SKU ID" width="100" align="center"/>
 
-      <el-table-column label="banner" width="320" align="center">
+      <el-table-column label="banner" width="160" align="center">
         <template slot-scope="scope">
           <div class="info">
             <div class="pic">
@@ -31,7 +51,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="skuName" label="名称"/>
+      <el-table-column prop="skuName" label="名称" align="center"/>
 
       <el-table-column prop="price" label="价格" width="70"/>
 
@@ -39,31 +59,24 @@
         <template slot-scope="scope">
           <el-button v-if="scope.row.isSale === 0" size="mini" icon="el-icon-edit" @click="onSale(scope.row.id)">上架
           </el-button>
-          <el-button v-if="scope.row.isSale === 1" type="danger" size="mini" icon="el-icon-delete"
+          <el-button v-if="scope.row.isSale === 1" type="warning" size="mini" icon="el-icon-delete"
                      @click="cancelSale(scope.row.id)">下架
           </el-button>
+          <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteSku(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <!-- 分页组件 -->
-    <el-pagination
-      :current-page="page"
-      :total="total"
-      :page-size="limit"
-      :page-sizes="[5, 10, 20, 30, 40, 50, 100]"
-      style="padding: 30px 0; text-align: center;"
-      layout="sizes, prev, pager, next, jumper, ->, total, slot"
-      @current-change="fetchData"
-      @size-change="changeSize"
-    />
   </div>
 </template>
 
 <script>
 import sku from '@/api/product/sku'
+import spu from '@/api/product/spu'
+import CategorySelector from '@/views/components/CategorySelector'
 
 export default {
+  components: { CategorySelector },
   data() {
     return {
       listLoading: false, // 数据是否正在加载
@@ -72,44 +85,65 @@ export default {
       page: 1, // 默认页码
       limit: 10, // 每页记录数
       searchObj: {}, // 查询表单对象
-      multipleSelection: [] // 批量选择中选择的记录列表
+      multipleSelection: [], // 批量选择中选择的记录列表,
+      spuInfoList: [], //spu选择列表
+
+      // spu所属分类
+      // 属性所属分类
+      category1Id: 0,
+      category2Id: 0,
+      category3Id: 0,
+      categoryLevel: 1,
+      spuId: ''
     }
   },
 
-  mounted() {
-    this.fetchData()
-  },
-
   methods: {
-    // 当页码发生改变的时候
-    changeSize(size) {
-      console.log(size)
-      this.limit = size
-      this.fetchData(1)
-    },
-
-    // 加载banner列表数据
-    fetchData(page = 1) {
-      // 异步获取远程数据（ajax）
-      this.page = page
+    async handleSpuChanged(spuId) {
+      console.log(spuId)
       this.listLoading = true
-
-      sku.getPageList(this.page, this.limit).then(response => {
-        this.list = response.data.rows
-        this.total = response.data.total
-
-        // 数据加载并绑定成功
-        this.listLoading = false
-      })
+      const res = await sku.getSkuBySpuId(spuId)
+      this.list = res.data
+      this.listLoading = false
+    },
+    async fetchSpuSelectListData() {
+      try {
+        const result = await spu.getAllSpuInfoByCategory3Id(this.category3Id)
+        this.spuInfoList = result.data
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    getSpuList(categoryId = 1, categoryLevel) {
+      this.categoryLevel = categoryLevel
+      if (categoryLevel === 1) {
+        this.category1Id = categoryId
+        this.category2Id = 0
+        this.category3Id = 0
+      }
+      if (categoryLevel === 2) {
+        this.category2Id = categoryId
+        this.category3Id = 0
+      }
+      if (categoryLevel === 3) {
+        this.category3Id = categoryId
+      }
+      this.searchObj.category3Id = categoryId
+      // 查询数据
+      // this.fetchData(1)
+      this.fetchSpuSelectListData()
     },
 
+    deleteSku(skuId) {
+      //TODO: 删除sku
+    },
     onSale(skuId) {
       sku.onSale(skuId).then(response => {
         this.$message({
           type: 'success',
           message: '操作成功!'
         })
-        this.fetchData(this.page)
+        this.handleSpuChanged(this.spuId)
       })
     },
 
@@ -119,7 +153,7 @@ export default {
           type: 'success',
           message: '操作成功!'
         })
-        this.fetchData(this.page)
+        this.handleSpuChanged(this.spuId)
       })
     },
 

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin/product/baseCategoryTrademark")
-@Api("分类品牌管理")
+@Api(tags = "分类品牌管理")
 public class BaseCategoryTrademarkController {
     @Autowired
     private BaseCategoryTrademarkService baseCategoryTrademarkService;
