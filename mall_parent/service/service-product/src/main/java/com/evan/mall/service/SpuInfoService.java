@@ -4,6 +4,7 @@ package com.evan.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.evan.mall.product.SpuInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,4 +17,6 @@ public interface SpuInfoService extends IService<SpuInfo> {
     Map<String, Object> getSpuInfoPage(Long limit, Long pageNo, Long category3Id);
 
     boolean saveSpuInfo(SpuInfo spuInfo);
+
+    List<SpuInfo> getAllSpuInfoByCategory3Id(Long category3Id);
 }

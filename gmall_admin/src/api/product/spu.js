@@ -11,6 +11,12 @@ export default {
       params: searchObj // url查询字符串或表单键值对
     })
   },
+  getAllSpuInfoByCategory3Id(category3Id) {
+    return request({
+      url: `${api_name}/${category3Id}`,
+      method: 'get'
+    })
+  },
 
   // 根据三级分类id获取属性列表
   getSpuList(category3Id) {

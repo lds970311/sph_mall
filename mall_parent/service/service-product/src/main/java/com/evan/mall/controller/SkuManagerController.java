@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/product")
-@Api("sku属性操作")
+@Api(tags = "sku属性操作")
 public class SkuManagerController {
     @Autowired
     private SpuSaleAttrService spuSaleAttrService;
@@ -69,6 +69,20 @@ public class SkuManagerController {
     public Result<String> cancelSale(@PathVariable Long skuId) {
         boolean updated = this.skuInfoService.onSale(skuId);
         return updated ? Result.ok() : Result.fail();
+    }
+
+    @DeleteMapping("/delete/{skuId}")
+    @ApiOperation("根据skuId删除sku")
+    public Result<String> deleteSku(@PathVariable String skuId) {
+        //TODO: 删除sku,多表，包括其销售属性与销售属性值，图片，海报
+        return Result.ok();
+    }
+
+    @GetMapping("/sku/{spuId}")
+    @ApiOperation("根据spuId查找sku")
+    public Result<List<SkuInfo>> findSkuListBySpuId(@PathVariable Long spuId) {
+        List<SkuInfo> skuInfoList = this.skuInfoService.findSkuListBySpuId(spuId);
+        return Result.ok(skuInfoList);
     }
 }
 

@@ -3,6 +3,7 @@ package com.evan.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.evan.mall.product.SkuInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,4 +18,8 @@ public interface SkuInfoService extends IService<SkuInfo> {
     Map<String, Object> getSkuInfoByPage(Long pageNo, Long limit);
 
     boolean onSale(Long skuId);
+
+    List<SkuInfo> findSkuListBySpuId(Long spuId);
+
+    SkuInfo getSkuInfo(Long skuId);
 }

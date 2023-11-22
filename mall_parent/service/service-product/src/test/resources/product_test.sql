@@ -38,3 +38,17 @@ WHERE
     (bai.category_level = 2 and bai.category_id = 13)
 # or (bai.category_level = 3 and bai.category_id = 61)
 order by bai.category_level, bai.id;
+
+# 创建商品分类视图
+
+create view base_category_view2 as
+select c3.id   as id,
+       c1.id   as category1_id,
+       c1.name as category1_name,
+       c2.id   as category2_id,
+       c2.name as category2_name,
+       c3.id   as category3_id,
+       c3.name as category3_name
+from base_category1 c1
+         inner join base_category2 c2 on c2.category1_id = c1.id
+         inner join base_category3 c3 on c3.category2_id = c2.id;

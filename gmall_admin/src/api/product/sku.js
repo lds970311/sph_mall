@@ -18,6 +18,13 @@ export default {
     })
   },
 
+  getSkuBySpuId(spuId) {
+    return request({
+      url: `/admin/product/sku/${spuId}`,
+      method: 'get'
+    })
+  },
+
   // 商品上架
   onSale(skuId) {
     return request({
