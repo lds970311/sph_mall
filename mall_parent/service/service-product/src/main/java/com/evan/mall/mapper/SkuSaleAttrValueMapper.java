@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.evan.mall.product.SkuSaleAttrValue;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author 26966
  * @description 针对表【sku_sale_attr_value(sku销售属性值)】的数据库操作Mapper
@@ -13,6 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SkuSaleAttrValueMapper extends BaseMapper<SkuSaleAttrValue> {
 
+    List<Map<String, Object>> getSkuValueIdsMap(Long spuId);
 }
 
 

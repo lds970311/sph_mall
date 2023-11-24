@@ -11,4 +11,5 @@ import com.evan.mall.product.SpuSaleAttrValue;
  */
 public interface SpuSaleAttrValueService extends IService<SpuSaleAttrValue> {
 
+
 }

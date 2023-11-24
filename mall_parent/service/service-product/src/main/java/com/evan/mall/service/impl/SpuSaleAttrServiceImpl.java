@@ -14,14 +14,20 @@ import java.util.List;
  * @createDate 2023-11-17 22:03:22
  */
 @Service
-public class SpuSaleAttrServiceImpl extends ServiceImpl<SpuSaleAttrMapper, SpuSaleAttr>
-        implements SpuSaleAttrService {
+public class SpuSaleAttrServiceImpl extends ServiceImpl<SpuSaleAttrMapper, SpuSaleAttr> implements SpuSaleAttrService {
 
     @Override
     public List<SpuSaleAttr> findSaleAttrList(Long spuId) {
         return this.baseMapper.findSaleAttrList(spuId);
     }
+
+    @Override
+    public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
+        return this.baseMapper.getSpuSaleAttrListCheckBySku(skuId, spuId);
+    }
 }
+
+
 
 
 

@@ -14,4 +14,7 @@ import java.util.List;
 public interface SpuSaleAttrService extends IService<SpuSaleAttr> {
 
     List<SpuSaleAttr> findSaleAttrList(Long spuId);
+
+    List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId);
+
 }

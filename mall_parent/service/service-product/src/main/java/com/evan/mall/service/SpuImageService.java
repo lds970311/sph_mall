@@ -14,4 +14,5 @@ import java.util.List;
 public interface SpuImageService extends IService<SpuImage> {
 
     List<SpuImage> getSpuImageListBySpuId(Long spuId);
+
 }
