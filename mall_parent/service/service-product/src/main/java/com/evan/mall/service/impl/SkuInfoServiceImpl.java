@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +27,8 @@ import java.util.Map;
  * @createDate 2023-11-18 00:04:27
  */
 @Service
-public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
-        implements SkuInfoService {
+@SuppressWarnings("all")
+public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implements SkuInfoService {
     @Autowired
     private SkuAttrValueMapper skuAttrValueMapper;
 
@@ -115,6 +116,21 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         List<SkuImage> skuImages = this.skuImageMapper.selectList(wrapper);
         skuInfo.setSkuImageList(skuImages);
         return skuInfo;
+    }
+
+    /**
+     * 查询实时价格
+     *
+     * @param skuId
+     * @return
+     */
+    @Override
+    public BigDecimal getSkuPrice(Long skuId) {
+        SkuInfo skuInfo = this.baseMapper.selectById(skuId);
+        if (null != skuInfo) {
+            return skuInfo.getPrice();
+        }
+        return new BigDecimal(0);
     }
 }
 

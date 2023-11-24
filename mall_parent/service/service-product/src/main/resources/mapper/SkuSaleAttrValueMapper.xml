@@ -14,9 +14,19 @@
         <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
     </resultMap>
 
+    <resultMap id="BaseSkuSaleAttrMap" type="java.util.Map" autoMapping="true"/>
+
     <sql id="Base_Column_List">
         id,sku_id,spu_id,
         sale_attr_value_id,create_time,update_time,
         is_deleted
     </sql>
+    <select id="getSkuValueIdsMap" resultMap="BaseSkuSaleAttrMap">
+        select group_concat(skav.sale_attr_value_id order by ssav.base_sale_attr_id separator '|') value_ids,
+               skav.sku_id
+        from sku_sale_attr_value skav
+                 inner join spu_sale_attr_value ssav on skav.sale_attr_value_id = ssav.id
+        where skav.spu_id = #{spuId}
+        group by sku_id;
+    </select>
 </mapper>

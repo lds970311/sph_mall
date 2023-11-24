@@ -69,8 +69,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="BaseCategoryView" />
-                  <option name="tableName" value="base_category_view2" />
+                  <option name="className" value="BaseAttrInfo" />
+                  <option name="tableName" value="base_attr_info" />
                 </TableUIInfo>
               </list>
             </option>

@@ -4,33 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.evan.mall.mapper.BaseAttrInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.evan.mall.product.BaseAttrInfo">
-        <id property="id" column="id" jdbcType="BIGINT"/>
-        <result property="attrName" column="attr_name" jdbcType="VARCHAR"/>
-        <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
-        <result property="categoryLevel" column="category_level" jdbcType="INTEGER"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
-    </resultMap>
 
     <resultMap id="baseAttrInfoMap" type="com.evan.mall.product.BaseAttrInfo" autoMapping="true">
         <id column="id" property="id"/>
-        <!--
-        property: 实体类属性名
-        ofType: 实体类属性名对应的类型
-        -->
         <collection property="attrValueList" ofType="com.evan.mall.product.BaseAttrValue" autoMapping="true">
             <id column="attr_value_id" property="id"/>
         </collection>
-
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,attr_name,category_id,
-        category_level,create_time,update_time,
-        is_deleted
-    </sql>
     <select id="selectAttrInfoList" resultMap="baseAttrInfoMap">
         select
         bai.id,
@@ -58,4 +39,26 @@
         order by bai.category_level ,bai.id
 
     </select>
+
+    <select id="getAttrListBySkuId" resultMap="baseAttrInfoMap">
+        select temp.id          id,
+               attr_name,
+               category_id,
+               category_level,
+               temp.attr_id  as attr_id,
+               temp.value_id as attr_value_id,
+               value_name
+        from (select bai.id,
+                     bai.attr_name,
+                     category_id,
+                     category_level,
+                     bav.id value_id,
+                     value_name,
+                     attr_id
+              from base_attr_info bai
+                       inner join base_attr_value bav on bav.attr_id = bai.id) temp
+                 inner join sku_attr_value sav on sav.value_id = temp.value_id and sav.attr_id = temp.attr_id
+        where sku_id = #{skuId};
+    </select>
+
 </mapper>

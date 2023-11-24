@@ -4,6 +4,8 @@ package com.evan.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.evan.mall.product.SpuPoster;
 
+import java.util.List;
+
 /**
  * @author 26966
  * @description 针对表【spu_poster(商品海报表)】的数据库操作Service
@@ -11,4 +13,5 @@ import com.evan.mall.product.SpuPoster;
  */
 public interface SpuPosterService extends IService<SpuPoster> {
 
+    List<SpuPoster> findPosterBySpuId(Long spuId);
 }

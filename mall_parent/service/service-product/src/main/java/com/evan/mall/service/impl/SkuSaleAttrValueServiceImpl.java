@@ -6,15 +6,21 @@ import com.evan.mall.product.SkuSaleAttrValue;
 import com.evan.mall.service.SkuSaleAttrValueService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author 26966
  * @description 针对表【sku_sale_attr_value(sku销售属性值)】的数据库操作Service实现
  * @createDate 2023-11-18 00:04:27
  */
 @Service
-public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueMapper, SkuSaleAttrValue>
-        implements SkuSaleAttrValueService {
+public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueMapper, SkuSaleAttrValue> implements SkuSaleAttrValueService {
 
+    @Override
+    public List<Map<String, Object>> getSkuValueIdsMap(Long spuId) {
+        return this.baseMapper.getSkuValueIdsMap(spuId);
+    }
 }
 
 

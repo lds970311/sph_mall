@@ -3,6 +3,7 @@ package com.evan.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.evan.mall.product.SkuInfo;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +23,12 @@ public interface SkuInfoService extends IService<SkuInfo> {
     List<SkuInfo> findSkuListBySpuId(Long spuId);
 
     SkuInfo getSkuInfo(Long skuId);
+
+    /**
+     * 查询实时价格
+     *
+     * @param skuId
+     * @return
+     */
+    BigDecimal getSkuPrice(Long skuId);
 }

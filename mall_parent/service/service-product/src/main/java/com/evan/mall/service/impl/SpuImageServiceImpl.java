@@ -15,8 +15,7 @@ import java.util.List;
  * @createDate 2023-11-17 22:03:22
  */
 @Service
-public class SpuImageServiceImpl extends ServiceImpl<SpuImageMapper, SpuImage>
-        implements SpuImageService {
+public class SpuImageServiceImpl extends ServiceImpl<SpuImageMapper, SpuImage> implements SpuImageService {
 
     @Override
     public List<SpuImage> getSpuImageListBySpuId(Long spuId) {
