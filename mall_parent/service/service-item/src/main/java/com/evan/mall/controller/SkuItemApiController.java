@@ -20,11 +20,10 @@ public class SkuItemApiController {
     private SkuItemApiService skuItemApiService;
 
     @GetMapping("/{skuId}")
-    @ApiOperation("根据skuId查询item")
+    @ApiOperation("根据skuId查询sku详情")
     public Result<Map<String, Object>> getSkuItem(@PathVariable Long skuId) {
         Map<String, Object> res = skuItemApiService.getSkuItemBySkuId(skuId);
         return Result.ok(res);
     }
-
 
 }

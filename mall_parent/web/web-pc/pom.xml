@@ -5,14 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.evan</groupId>
-        <artifactId>service</artifactId>
+        <artifactId>web</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>service-item</artifactId>
+    <artifactId>web-pc</artifactId>
     <packaging>jar</packaging>
-    <name>service-item</name>
-    <description>service-item</description>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -23,10 +21,19 @@
     <dependencies>
         <dependency>
             <groupId>com.evan</groupId>
-            <artifactId>service-product-client</artifactId>
+            <artifactId>service-item-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
 
+    <build>
+        <finalName>web-all</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
