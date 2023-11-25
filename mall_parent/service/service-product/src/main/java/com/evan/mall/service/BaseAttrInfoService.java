@@ -13,4 +13,5 @@ import java.util.List;
 public interface BaseAttrInfoService extends IService<BaseAttrInfo> {
 
     List<BaseAttrInfo> getAttrListBySkuId(Long skuId);
+
 }
