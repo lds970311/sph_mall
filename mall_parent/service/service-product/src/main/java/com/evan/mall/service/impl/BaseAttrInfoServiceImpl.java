@@ -20,6 +20,7 @@ public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper, Bas
     public List<BaseAttrInfo> getAttrListBySkuId(Long skuId) {
         return this.baseMapper.getAttrListBySkuId(skuId);
     }
+
 }
 
 

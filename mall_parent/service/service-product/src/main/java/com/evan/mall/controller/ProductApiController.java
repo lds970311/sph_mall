@@ -85,5 +85,6 @@ public class ProductApiController {
     @ApiOperation("根据skuId获取平台属性")
     public List<BaseAttrInfo> getAttrList(@PathVariable Long skuId) {
         return this.baseAttrInfoService.getAttrListBySkuId(skuId);
+
     }
 }
