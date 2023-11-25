@@ -49,12 +49,10 @@ public class PluginsTest {
         heap[i] = temp;
     }
 
-    //文件复制
 
 
     public static void main(String[] args) {
         int[] arr = {1, 3, 5, 2, 2, 6, 11, 21};
-        System.out.println(getKth(arr, 3));
-
+        //System.out.println(getKth(arr, 3));
     }
 }

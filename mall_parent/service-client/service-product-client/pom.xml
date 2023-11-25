@@ -5,28 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.evan</groupId>
-        <artifactId>service</artifactId>
+        <artifactId>service-client</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>service-item</artifactId>
+    <artifactId>service-product-client</artifactId>
     <packaging>jar</packaging>
-    <name>service-item</name>
-    <description>service-item</description>
+    <name>service-product-client</name>
+    <description>service-product-client</description>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.evan</groupId>
-            <artifactId>service-product-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
-
 
 </project>
