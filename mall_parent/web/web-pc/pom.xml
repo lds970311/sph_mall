@@ -28,11 +28,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!--开发者工具-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
     </dependencies>
 
 
     <build>
-        <finalName>web-all</finalName>
+        <finalName>web-pc</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
