@@ -11,7 +11,7 @@ import java.util.Map;
 
 @FeignClient(value = "service-item", fallback = ItemDegradeFeignClient.class)
 public interface ItemFeignClient {
-    @GetMapping("/{skuId}")
+    @GetMapping("/api/item/{skuId}")
     @ApiOperation("根据skuId查询sku详情")
     Result<Map<String, Object>> getSkuItem(@PathVariable Long skuId);
 }
