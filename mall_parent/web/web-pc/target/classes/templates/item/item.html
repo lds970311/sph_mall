@@ -1041,7 +1041,7 @@
                 this.spuSaleAttrList.forEach((spuSaleAttr, index) => {
                     spuSaleAttr.index = index
                     spuSaleAttr.spuSaleAttrValueList.forEach((spuSaleAttrValue) => {
-                        if (spuSaleAttrValue.isChecked == 1) {
+                        if (spuSaleAttrValue.isChecked === 1) {
                             this.selectValuesSkus.push(spuSaleAttrValue.id)
                         }
                     })
