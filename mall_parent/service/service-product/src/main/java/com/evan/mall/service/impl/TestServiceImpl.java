@@ -5,8 +5,10 @@ import com.evan.mall.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -32,10 +34,16 @@ public class TestServiceImpl implements TestService {
             int num = Integer.parseInt(value);
             // 把redis中的num值+1
             this.redisTemplate.opsForValue().set("num", String.valueOf(++num));
-            if (uuid.equals(valueOperations.get("lock"))) {
+            //lua脚本实现锁
+            String script = "if redis.call('get', KEYS[1]) == ARGV[1] " +
+                    "then return redis.call('del', KEYS[1]) " +
+                    "else return 0 " +
+                    "end";
+            this.redisTemplate.execute(new DefaultRedisScript<>(script, Long.class), Collections.singletonList("lock"), uuid);
+            /*if (uuid.equals(valueOperations.get("lock"))) {
                 // 释放锁
                 this.redisTemplate.delete("lock");
-            }
+            }*/
         } else {
             Thread.sleep(100);
             testLock();

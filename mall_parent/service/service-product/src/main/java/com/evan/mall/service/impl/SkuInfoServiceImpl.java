@@ -3,6 +3,7 @@ package com.evan.mall.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.evan.mall.common.constant.RedisConst;
 import com.evan.mall.mapper.SkuAttrValueMapper;
 import com.evan.mall.mapper.SkuImageMapper;
 import com.evan.mall.mapper.SkuInfoMapper;
@@ -12,14 +13,16 @@ import com.evan.mall.product.SkuImage;
 import com.evan.mall.product.SkuInfo;
 import com.evan.mall.product.SkuSaleAttrValue;
 import com.evan.mall.service.SkuInfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 26966
@@ -28,6 +31,7 @@ import java.util.Map;
  */
 @Service
 @SuppressWarnings("all")
+@Slf4j
 public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implements SkuInfoService {
     @Autowired
     private SkuAttrValueMapper skuAttrValueMapper;
@@ -37,6 +41,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
 
     @Autowired
     private SkuImageMapper skuImageMapper;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public boolean saveSkuInfo(SkuInfo skuInfo) {
@@ -108,6 +115,79 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
 
     @Override
     public SkuInfo getSkuInfo(Long skuId) {
+        try {
+            return this.getSkuInfoRedis(skuId);
+        } catch (InterruptedException e) {
+            log.error(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 从redis获取skuInfo
+     *
+     * @param skuId
+     * @return
+     */
+    private SkuInfo getSkuInfoRedis(Long skuId) throws InterruptedException {
+        SkuInfo skuInfo = null;
+        try {
+            // 缓存存储数据：key-value
+            // 定义key sku:skuId:info
+            String skuKey = RedisConst.SKUKEY_PREFIX + skuId + RedisConst.SKUKEY_SUFFIX;
+            // 获取里面的数据？ redis 有五种数据类型 那么我们存储商品详情 使用哪种数据类型？
+            // 获取缓存数据
+            skuInfo = (SkuInfo) redisTemplate.opsForValue().get(skuKey);
+            // 如果从缓存中获取的数据是空
+            if (skuInfo == null) {
+                // 直接获取数据库中的数据，可能会造成缓存击穿。所以在这个位置，应该添加锁。
+                // 第一种：redis ，第二种：redisson
+                // 定义锁的key sku:skuId:lock  set k1 v1 px 10000 nx
+                String lockKey = RedisConst.SKUKEY_PREFIX + skuId + RedisConst.SKULOCK_SUFFIX;
+                // 定义锁的值
+                String uuid = UUID.randomUUID().toString().replace("-", "");
+                // 上锁
+                Boolean isExist = redisTemplate.opsForValue().setIfAbsent(lockKey, uuid, RedisConst.SKULOCK_EXPIRE_PX2, TimeUnit.SECONDS);
+                if (isExist) {
+                    // 执行成功的话，则上锁。
+                    log.info("获取到分布式锁");
+                    // 真正获取数据库中的数据 {数据库中到底有没有这个数据 = 防止缓存穿透}
+                    skuInfo = getSkuInfoDB(skuId);
+                    // 从数据库中获取的数据就是空
+                    if (skuInfo == null) {
+                        // 为了避免缓存穿透 应该给空的对象放入缓存
+                        SkuInfo skuInfo1 = new SkuInfo(); //对象的地址
+                        redisTemplate.opsForValue().set(skuKey, skuInfo1, RedisConst.SKUKEY_TEMPORARY_TIMEOUT, TimeUnit.SECONDS);
+                        return skuInfo1;
+                    }
+                    // 查询数据库的时候，有值
+                    redisTemplate.opsForValue().set(skuKey, skuInfo, RedisConst.SKUKEY_TIMEOUT, TimeUnit.SECONDS);
+                    // 解锁：使用lua 脚本解锁
+                    String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+                    redisTemplate.execute(new DefaultRedisScript(script, Long.class), Arrays.asList(lockKey), uuid);
+                    return skuInfo;
+                } else {
+                    // 其他线程等待
+                    Thread.sleep(100);
+                    return getSkuInfo(skuId);
+                }
+            } else {
+                return skuInfo;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // 为了防止缓存宕机：从数据库中获取数据
+        return getSkuInfoDB(skuId);
+    }
+
+    /**
+     * 查询数据库获取sku数据
+     *
+     * @param skuId
+     * @return
+     */
+    private SkuInfo getSkuInfoDB(Long skuId) {
         SkuInfo skuInfo = this.baseMapper.selectById(skuId);
         if (null == skuInfo) return null;
         //查找sku图片

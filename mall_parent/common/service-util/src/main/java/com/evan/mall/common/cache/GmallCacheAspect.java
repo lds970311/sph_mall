@@ -3,6 +3,7 @@ package com.evan.mall.common.cache;
 import com.alibaba.fastjson.JSON;
 import com.evan.mall.common.constant.RedisConst;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Aspect
 @SuppressWarnings("all")
+@Slf4j
 public class GmallCacheAspect {
 
     @Autowired
@@ -31,29 +33,36 @@ public class GmallCacheAspect {
     @Autowired
     private RedisTemplate redisTemplate;
 
+
     //  定义一个环绕通知！
+
+    /**
+     * 定义一个环绕通知！
+     *
+     * @param proceedingJoinPoint
+     * @return RedisCache标注的方法的返回值
+     * 业务逻辑！
+     * 1. 必须先知道这个注解在哪些方法 || 必须要获取到方法上的注解
+     * 2. 获取到注解上的前缀
+     * 3. 必须要组成一个缓存的key！
+     * 4. 可以通过这个key 获取缓存的数据
+     * true:
+     * 直接返回！
+     * false:
+     * 分布式锁业务逻辑！
+     */
     @SneakyThrows
-    @Around("@annotation(com.evan.mall.common.cache.GmallCache)")
-    public Object gmallCacheAspectMethod(ProceedingJoinPoint point) {
+    @Around("@annotation(com.evan.mall.common.cache.RedisCache)")
+    public Object redisCacheAspectMethod(ProceedingJoinPoint proceedingJoinPoint) {
         //  定义一个对象
         Object obj = new Object();
-        /*
-         业务逻辑！
-         1. 必须先知道这个注解在哪些方法 || 必须要获取到方法上的注解
-         2. 获取到注解上的前缀
-         3. 必须要组成一个缓存的key！
-         4. 可以通过这个key 获取缓存的数据
-            true:
-                直接返回！
-            false:
-                分布式锁业务逻辑！
-         */
-        MethodSignature methodSignature = (MethodSignature) point.getSignature();
-        GmallCache gmallCache = methodSignature.getMethod().getAnnotation(GmallCache.class);
+
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+        RedisCache redisCache = methodSignature.getMethod().getAnnotation(RedisCache.class);
         //   获取到注解上的前缀
-        String prefix = gmallCache.prefix();
+        String prefix = redisCache.prefix();
         //  组成缓存的key！ 获取方法传递的参数
-        String key = prefix + Arrays.asList(point.getArgs()).toString();
+        String key = prefix + Arrays.asList(proceedingJoinPoint.getArgs()).toString();
         try {
             //  可以通过这个key 获取缓存的数据
             obj = this.getRedisData(key, methodSignature);
@@ -67,8 +76,8 @@ public class GmallCacheAspect {
                 if (result) {
                     try {
                         //  执行业务逻辑：直接从数据库获取数据
-                        //  这个注解 @GmallCache 有可能在 BaseCategoryView getCategoryName , List<SpuSaleAttr> getSpuSaleAttrListById ....
-                        obj = point.proceed(point.getArgs());
+                        //  这个注解 @RedisCache 有可能在 BaseCategoryView getCategoryName , List<SpuSaleAttr> getSpuSaleAttrListById ....
+                        obj = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
                         //  防止缓存穿透
                         if (obj == null) {
                             Object object = new Object();
@@ -87,7 +96,7 @@ public class GmallCacheAspect {
                     //  没有获取到
                     try {
                         Thread.sleep(100);
-                        return gmallCacheAspectMethod(point);
+                        return redisCacheAspectMethod(proceedingJoinPoint);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -96,11 +105,11 @@ public class GmallCacheAspect {
                 //  直接从缓存获取的数据！
                 return obj;
             }
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
+        } catch (Exception exception) {
+            log.error("RedisCache增强出现异常了！" + exception.getMessage());
         }
         //  数据库兜底！
-        return point.proceed(point.getArgs());
+        return proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
     }
 
     /**
