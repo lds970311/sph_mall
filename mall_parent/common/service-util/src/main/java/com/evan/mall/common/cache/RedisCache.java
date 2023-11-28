@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface GmallCache {
+public @interface RedisCache {
 
     //  定义一个数据 sku:skuId
     //  目的用这个前缀要想组成 缓存的key！
