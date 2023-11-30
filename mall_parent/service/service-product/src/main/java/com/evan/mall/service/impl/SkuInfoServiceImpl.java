@@ -14,6 +14,8 @@ import com.evan.mall.product.SkuInfo;
 import com.evan.mall.product.SkuSaleAttrValue;
 import com.evan.mall.service.SkuInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -44,6 +46,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private RedissonClient redissonClient;
 
     @Override
     public boolean saveSkuInfo(SkuInfo skuInfo) {
@@ -179,6 +184,56 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         }
         // 为了防止缓存宕机：从数据库中获取数据
         return getSkuInfoDB(skuId);
+    }
+
+
+    /**
+     * redisson实现分布式锁，获取skuInfo
+     *
+     * @param skuId
+     * @return SkuInfo
+     */
+    private SkuInfo getSkuInfoRedisson(Long skuId) {
+        String skuKey = RedisConst.SKUKEY_PREFIX + skuId + RedisConst.SKUKEY_SUFFIX;
+        SkuInfo skuInfo = (SkuInfo) redisTemplate.opsForValue().get(skuKey);
+        if (null == skuInfo) {
+            String lockKey = RedisConst.SKUKEY_PREFIX + skuId + RedisConst.SKULOCK_SUFFIX;
+            RLock lock = this.redissonClient.getLock(lockKey);
+            try {
+                //尝试获取锁
+                boolean result = lock.tryLock(RedisConst.SKULOCK_EXPIRE_PX1, RedisConst.SKULOCK_EXPIRE_PX2, TimeUnit.SECONDS);
+                if (result) {
+                    try {
+                        skuInfo = this.getSkuInfoDB(skuId);
+                        if (null == skuInfo) {
+                            //防止缓存穿透
+                            SkuInfo skuInfo1 = new SkuInfo();
+                            redisTemplate.opsForValue().set(skuKey, skuInfo1, RedisConst.SKUKEY_TEMPORARY_TIMEOUT, TimeUnit.SECONDS);
+                            return skuInfo1;
+                        }
+                        redisTemplate.opsForValue().set(skuKey, skuInfo, RedisConst.SKUKEY_TIMEOUT, TimeUnit.SECONDS);
+                        return skuInfo;
+                    } finally {
+                        lock.unlock();
+                    }
+                } else {
+                    //等待
+                    try {
+                        Thread.sleep(100);
+                        return this.getSkuInfo(skuId);
+                    } catch (InterruptedException e) {
+                        log.error(e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+            } catch (InterruptedException e) {
+                log.error(e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            return skuInfo;
+        }
+        return this.getSkuInfoDB(skuId);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.evan.mall.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.evan.mall.common.cache.RedisCache;
 import com.evan.mall.mapper.BaseCategoryViewMapper;
 import com.evan.mall.product.BaseCategoryView;
 import com.evan.mall.service.BaseCategoryViewService;
@@ -15,6 +16,12 @@ import org.springframework.stereotype.Service;
 public class BaseCategoryViewServiceImpl extends ServiceImpl<BaseCategoryViewMapper, BaseCategoryView>
         implements BaseCategoryViewService {
 
+    @Override
+    @RedisCache(prefix = "categoryView:")
+    public BaseCategoryView findBaseCategoryByCategory3Id(Long category3Id) {
+
+        return this.baseMapper.selectById(category3Id);
+    }
 }
 
 

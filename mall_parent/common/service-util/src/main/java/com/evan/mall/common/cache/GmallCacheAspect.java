@@ -62,31 +62,36 @@ public class GmallCacheAspect {
         //   获取到注解上的前缀
         String prefix = redisCache.prefix();
         //  组成缓存的key！ 获取方法传递的参数
-        String key = prefix + Arrays.asList(proceedingJoinPoint.getArgs()).toString();
+        Object[] args = proceedingJoinPoint.getArgs();
+        String key = prefix + Arrays.asList(args).toString() + redisCache.suffix();
         try {
             //  可以通过这个key 获取缓存的数据
-            obj = this.getRedisData(key, methodSignature);
+            //obj = this.getRedisData(key, methodSignature);
+            obj = this.getRedisDataObject(key);
             if (obj == null) {
                 //  分布式业务逻辑
                 //  设置分布式锁，进入数据库进行查询数据！
-                RLock lock = redissonClient.getLock(key + ":lock");
+                String lockKey = key + ":lock";
+                RLock lock = redissonClient.getLock(lockKey);
                 //  调用trylock方法
                 boolean result = lock.tryLock(RedisConst.SKULOCK_EXPIRE_PX1, RedisConst.SKULOCK_EXPIRE_PX2, TimeUnit.SECONDS);
                 //  判断
                 if (result) {
                     try {
                         //  执行业务逻辑：直接从数据库获取数据
-                        //  这个注解 @RedisCache 有可能在 BaseCategoryView getCategoryName , List<SpuSaleAttr> getSpuSaleAttrListById ....
-                        obj = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
+                        obj = proceedingJoinPoint.proceed(args);
                         //  防止缓存穿透
                         if (obj == null) {
-                            Object object = new Object();
+                            Class returnType = methodSignature.getReturnType();
+                            obj = returnType.getDeclaredConstructor().newInstance();
                             //  将缓存的数据变为 Json 的 字符串
-                            this.redisTemplate.opsForValue().set(key, JSON.toJSONString(object), RedisConst.SKUKEY_TEMPORARY_TIMEOUT, TimeUnit.SECONDS);
-                            return object;
+//                            this.redisTemplate.opsForValue().set(key, JSON.toJSONString(obj), RedisConst.SKUKEY_TEMPORARY_TIMEOUT, TimeUnit.SECONDS);
+                            this.redisTemplate.opsForValue().set(key, obj, RedisConst.SKUKEY_TEMPORARY_TIMEOUT, TimeUnit.SECONDS);
+                            return obj;
                         }
                         //  将缓存的数据变为 Json 的 字符串
-                        this.redisTemplate.opsForValue().set(key, JSON.toJSONString(obj), RedisConst.SKUKEY_TIMEOUT, TimeUnit.SECONDS);
+//                        this.redisTemplate.opsForValue().set(key, JSON.toJSONString(obj), RedisConst.SKUKEY_TIMEOUT, TimeUnit.SECONDS);
+                        this.redisTemplate.opsForValue().set(key, obj, RedisConst.SKUKEY_TIMEOUT, TimeUnit.SECONDS);
                         return obj;
                     } finally {
                         //  解锁
@@ -94,12 +99,8 @@ public class GmallCacheAspect {
                     }
                 } else {
                     //  没有获取到
-                    try {
-                        Thread.sleep(100);
-                        return redisCacheAspectMethod(proceedingJoinPoint);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    Thread.sleep(100);
+                    return redisCacheAspectMethod(proceedingJoinPoint);
                 }
             } else {
                 //  直接从缓存获取的数据！
@@ -109,7 +110,7 @@ public class GmallCacheAspect {
             log.error("RedisCache增强出现异常了！" + exception.getMessage());
         }
         //  数据库兜底！
-        return proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
+        return proceedingJoinPoint.proceed(args);
     }
 
     /**
@@ -128,6 +129,10 @@ public class GmallCacheAspect {
             return JSON.parseObject(strJson, methodSignature.getReturnType());
         }
         return null;
+    }
+
+    private Object getRedisDataObject(String key) {
+        return this.redisTemplate.opsForValue().get(key);
     }
 
 }

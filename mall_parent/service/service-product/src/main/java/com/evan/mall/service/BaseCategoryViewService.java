@@ -10,4 +10,5 @@ import com.evan.mall.product.BaseCategoryView;
  */
 public interface BaseCategoryViewService extends IService<BaseCategoryView> {
 
+    BaseCategoryView findBaseCategoryByCategory3Id(Long category3Id);
 }

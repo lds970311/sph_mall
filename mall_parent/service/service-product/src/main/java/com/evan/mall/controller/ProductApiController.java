@@ -47,7 +47,7 @@ public class ProductApiController {
     @GetMapping("/getCategoryView/{category3Id}")
     @ApiOperation("根据三级分类id获取分类信息")
     public BaseCategoryView findBaseCategory(@PathVariable Long category3Id) {
-        return this.baseCategoryViewService.getById(category3Id);
+        return this.baseCategoryViewService.findBaseCategoryByCategory3Id(category3Id);
     }
 
     @GetMapping("/getSkuPrice/{skuId}")

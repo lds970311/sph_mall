@@ -2,6 +2,7 @@ package com.evan.mall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.evan.mall.common.cache.RedisCache;
 import com.evan.mall.mapper.SpuPosterMapper;
 import com.evan.mall.product.SpuPoster;
 import com.evan.mall.service.SpuPosterService;
@@ -18,6 +19,7 @@ import java.util.List;
 public class SpuPosterServiceImpl extends ServiceImpl<SpuPosterMapper, SpuPoster> implements SpuPosterService {
 
     @Override
+    @RedisCache(prefix = "findSpuPosterBySpuId:")
     public List<SpuPoster> findPosterBySpuId(Long spuId) {
         LambdaQueryWrapper<SpuPoster> spuPosterLambdaQueryWrapper = new LambdaQueryWrapper<>();
         spuPosterLambdaQueryWrapper.eq(SpuPoster::getSpuId, spuId);
