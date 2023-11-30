@@ -1,6 +1,7 @@
 package com.evan.mall.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.evan.mall.common.cache.RedisCache;
 import com.evan.mall.mapper.SpuSaleAttrMapper;
 import com.evan.mall.product.SpuSaleAttr;
 import com.evan.mall.service.SpuSaleAttrService;
@@ -22,6 +23,7 @@ public class SpuSaleAttrServiceImpl extends ServiceImpl<SpuSaleAttrMapper, SpuSa
     }
 
     @Override
+    @RedisCache(prefix = "spuSaleAttrListCheckBySku:")
     public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
         return this.baseMapper.getSpuSaleAttrListCheckBySku(skuId, spuId);
     }

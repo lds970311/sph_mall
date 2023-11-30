@@ -1,6 +1,7 @@
 package com.evan.mall.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.evan.mall.common.cache.RedisCache;
 import com.evan.mall.mapper.BaseAttrInfoMapper;
 import com.evan.mall.product.BaseAttrInfo;
 import com.evan.mall.service.BaseAttrInfoService;
@@ -17,6 +18,7 @@ import java.util.List;
 public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper, BaseAttrInfo> implements BaseAttrInfoService {
 
     @Override
+    @RedisCache(prefix = "attrList:")
     public List<BaseAttrInfo> getAttrListBySkuId(Long skuId) {
         return this.baseMapper.getAttrListBySkuId(skuId);
     }

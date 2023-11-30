@@ -1,6 +1,7 @@
 package com.evan.mall.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.evan.mall.common.cache.RedisCache;
 import com.evan.mall.mapper.SkuSaleAttrValueMapper;
 import com.evan.mall.product.SkuSaleAttrValue;
 import com.evan.mall.service.SkuSaleAttrValueService;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueMapper, SkuSaleAttrValue> implements SkuSaleAttrValueService {
 
     @Override
+    @RedisCache(prefix = "skuValueIdsMap:")
     public List<Map<String, Object>> getSkuValueIdsMap(Long spuId) {
         return this.baseMapper.getSkuValueIdsMap(spuId);
     }
