@@ -14,6 +14,7 @@ import com.evan.mall.product.SkuInfo;
 import com.evan.mall.product.SkuSaleAttrValue;
 import com.evan.mall.service.SkuInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
                 this.skuSaleAttrValueMapper.insert(skuSaleAttrValue);
             }
         }
+        //告诉布隆过滤器，skuId已经被使用
+        RBloomFilter<Object> bloomFilter = this.redissonClient.getBloomFilter(RedisConst.SKUKEY_PREFIX);
+        bloomFilter.add(skuInfo.getId());
         return true;
     }
 
