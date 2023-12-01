@@ -22,7 +22,7 @@ public class SkuItemApiController {
     @GetMapping("/{skuId}")
     @ApiOperation("根据skuId查询sku详情")
     public Result<Map<String, Object>> getSkuItem(@PathVariable Long skuId) {
-        Map<String, Object> res = skuItemApiService.getSkuItemBySkuId(skuId);
+        Map<String, Object> res = skuItemApiService.getSkuItemBySkuIdAsync(skuId);
         return Result.ok(res);
     }
 

@@ -11,6 +11,7 @@
         <module name="web-pc" />
         <module name="common-util" />
         <module name="service-product-client" />
+        <module name="test" />
         <module name="service-product" />
         <module name="service-item-client" />
         <module name="web-util" />
@@ -33,6 +34,7 @@
       <module name="service-product" options="-parameters" />
       <module name="service-product-client" options="-parameters" />
       <module name="service-util" options="-parameters" />
+      <module name="test" options="-parameters" />
       <module name="web" options="" />
       <module name="web-pc" options="-parameters" />
       <module name="web-util" options="-parameters" />
