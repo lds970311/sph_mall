@@ -38,9 +38,9 @@ public class ServiceProductApplication implements CommandLineRunner {
         RBloomFilter<Object> rbloomFilter = redissonClient.getBloomFilter(RedisConst.SKU_BLOOM_FILTER);
         // 初始化布隆过滤器，预计统计元素数量为100000，期望误差率为0.001
         rbloomFilter.tryInit(100000, 0.001);
-/*        for (Long i = 20l; i < 34l; i++) {
+        for (Long i = 20l; i < 34l; i++) {
             rbloomFilter.add(i);
-        }*/
+        }
 
     }
 }

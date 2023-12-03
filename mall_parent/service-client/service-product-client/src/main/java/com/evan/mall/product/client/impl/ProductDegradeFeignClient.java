@@ -1,5 +1,7 @@
 package com.evan.mall.product.client.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.evan.mall.common.result.Result;
 import com.evan.mall.product.*;
 import com.evan.mall.product.client.ProductFeignClient;
 import org.springframework.stereotype.Component;
@@ -49,6 +51,11 @@ public class ProductDegradeFeignClient implements ProductFeignClient {
 
     @Override
     public List<BaseAttrInfo> getAttrList(Long skuId) {
+        return null;
+    }
+
+    @Override
+    public Result<List<JSONObject>> getBaseCategoryList() {
         return null;
     }
 }
