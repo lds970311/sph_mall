@@ -32,19 +32,22 @@
                         <div th:class="${st.index == 0} ? 'item bo' : 'item'" th:each="category1,st: ${list}">
                             <h3>
                                 <a target="_blank"
-                                   th:href="@{http://list.gmall.com/list.html?category1Id={category1Id}(category1Id=${category1.categoryId})}" th:text="${category1.categoryName}">手机、数码、充值</a>
+                                   th:href="@{http://list.gmall.com/list.html?category1Id={category1Id}(category1Id=${category1.categoryId})}"
+                                   th:text="${category1.categoryName}">手机、数码、充值</a>
                             </h3>
                             <div class="item-list clearfix">
                                 <div class="subitem">
                                     <dl class="fore" th:each="category2: ${category1.categoryChild}">
                                         <dt>
                                             <a target="_blank"
-                                               th:href="@{http://list.gmall.com/list.html?category2Id={category2Id}(category2Id=${category2.categoryId})}" th:text="${category2.categoryName}">充值</a>
+                                               th:href="@{http://list.gmall.com/list.html?category2Id={category2Id}(category2Id=${category2.categoryId})}"
+                                               th:text="${category2.categoryName}">充值</a>
                                         </dt>
                                         <dd>
                                             <em th:each="category3: ${category2.categoryChild}">
                                                 <a target="_blank"
-                                                   th:href="@{http://list.gmall.com/list.html?category3Id={category3Id}(category3Id=${category3.categoryId})}" th:text="${category3.categoryName}">充值</a>
+                                                   th:href="@{http://list.gmall.com/list.html?category3Id={category3Id}(category3Id=${category3.categoryId})}"
+                                                   th:text="${category3.categoryName}">充值</a>
                                             </em>
                                         </dd>
                                     </dl>
@@ -87,10 +90,10 @@
                 <div class="carousel-inner">
                     <div class="active item">
                         <a href="http://baidu2.wypxj.com/">
-                            <img src="./img/banner1.jpg"/>
+                            <img src="./img/banner3.jpg"/>
                         </a>
                     </div>
-                    <div class="item">
+                    <div class="active item">
                         <a href="http://baidu2.wypxj.com/">
                             <img src="./img/banner2.jpg"/>
                         </a>
@@ -102,8 +105,8 @@
 
                     </div>
                 </div>
-                <a class="carousel-control left" data-slide="prev" href="#myCarousel">‹</a>
-                <a class="carousel-control right" data-slide="next" href="#myCarousel">›</a>
+                <a class="carousel-control left" data-slide="prev">‹</a>
+                <a class="carousel-control right" data-slide="next">›</a>
             </div>
         </div>
         <div class="yui3-u Right">

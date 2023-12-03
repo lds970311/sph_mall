@@ -1,7 +1,10 @@
 package com.evan.mall.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.evan.mall.product.BaseCategoryView;
+
+import java.util.List;
 
 /**
  * @author 26966
@@ -11,4 +14,11 @@ import com.evan.mall.product.BaseCategoryView;
 public interface BaseCategoryViewService extends IService<BaseCategoryView> {
 
     BaseCategoryView findBaseCategoryByCategory3Id(Long category3Id);
+
+    /**
+     * 返回所有商品分类数据
+     *
+     * @return 商品所有分类数据
+     */
+    List<JSONObject> getBaseCategoryList();
 }

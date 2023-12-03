@@ -1,6 +1,8 @@
 package com.evan.mall.product.client;
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.evan.mall.common.result.Result;
 import com.evan.mall.product.*;
 import com.evan.mall.product.client.impl.ProductDegradeFeignClient;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -36,4 +38,8 @@ public interface ProductFeignClient {
 
     @GetMapping("/api/product/inner/getAttrList/{skuId}")
     List<BaseAttrInfo> getAttrList(@PathVariable Long skuId);
+
+    @GetMapping("/api/product/getBaseCategoryList")
+    Result<List<JSONObject>> getBaseCategoryList();
+
 }
