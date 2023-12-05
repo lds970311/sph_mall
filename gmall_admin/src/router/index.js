@@ -93,6 +93,7 @@ export const constantRouterMap = [
     children: [
       {
         path: 'spu/list',
+        // path: 'https://www.baidu.com',
         name: 'ProductSpuList',
         component: () => import('@/views/product/spu/list'),
         meta: { title: '商品属性SPU管理' }

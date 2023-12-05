@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ElasticsearchConfiguration">
+    <option name="clusterConfigurations">
+      <map>
+        <entry key="da198c34-0f6a-4120-9653-f6296fe4ede2">
+          <value>
+            <ClusterConfigInternal>
+              <option name="id" value="da198c34-0f6a-4120-9653-f6296fe4ede2" />
+              <option name="label" value="hadoop133_es" />
+              <option name="url" value="http://hadoop133:9200" />
+              <option name="version" value="1" />
+            </ClusterConfigInternal>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="version" value="2" />
+  </component>
+</project>
