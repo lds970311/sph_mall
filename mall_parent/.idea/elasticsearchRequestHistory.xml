@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ElasticsearchRequestHistory">
+    <option name="requestHistory">
+      <map>
+        <entry key="da198c34-0f6a-4120-9653-f6296fe4ede2">
+          <value>
+            <list>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;query&quot;: {&#10;    &quot;nested&quot;: {&#10;      &quot;path&quot;: &quot;user&quot;,&#10;      &quot;query&quot;: {&#10;        &quot;bool&quot;: {&#10;          &quot;must&quot;: [&#10;            {&#10;              &quot;match&quot;: {&#10;                &quot;user.first&quot;: &quot;Alice&quot;&#10;              }&#10;            },&#10;            {&#10;              &quot;match&quot;: {&#10;                &quot;user.last&quot;: &quot;White&quot;&#10;              }&#10;            }&#10;          ]&#10;        }&#10;      }&#10;    }&#10;  }&#10;}" />
+                <option name="path" value="/my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;query&quot;: {&#10;    &quot;nested&quot;: {&#10;      &quot;path&quot;: &quot;user&quot;,&#10;      &quot;query&quot;: {&#10;        &quot;bool&quot;: {&#10;          &quot;must&quot;: [&#10;            {&#10;              &quot;match&quot;: {&#10;                &quot;user.first&quot;: &quot;Alice&quot;&#10;              }&#10;            }&#10;          ]&#10;        }&#10;      }&#10;    }&#10;  }&#10;}" />
+                <option name="path" value="/my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;query&quot;: {&#10;    &quot;nested&quot;: {&#10;      &quot;path&quot;: &quot;user&quot;,&#10;      &quot;query&quot;: {&#10;        &quot;bool&quot;: {&#10;          &quot;must&quot;: [&#10;            {&#10;              &quot;match&quot;: {&#10;                &quot;user.first&quot;: &quot;Alice&quot;&#10;              }&#10;            },&#10;            {&#10;              &quot;match&quot;: {&#10;                &quot;user.last&quot;: &quot;Smith&quot;&#10;              }&#10;            }&#10;          ]&#10;        }&#10;      }&#10;    }&#10;  }&#10;}" />
+                <option name="path" value="/my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;from&quot;: 0,&#10;  &quot;size&quot;: 50,&#10;  &quot;query&quot;: {&#10;    &quot;match_all&quot;: {}&#10;  }&#10;}" />
+                <option name="path" value="/my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;query&quot;: {&#10;    &quot;nested&quot;: {&#10;      &quot;path&quot;: &quot;user&quot;,&#10;      &quot;query&quot;: {&#10;        &quot;bool&quot;: {&#10;          &quot;must&quot;: [&#10;            {&#10;              &quot;match&quot;: {&#10;                &quot;user.first&quot;: &quot;Alice&quot;&#10;              }&#10;            },&#10;            {&#10;              &quot;match&quot;: {&#10;                &quot;user.last&quot;: &quot;Smith&quot;&#10;              }&#10;            }&#10;          ]&#10;        }&#10;      }&#10;    }&#10;  }&#10;}" />
+                <option name="path" value="/my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;group&quot;: &quot;fans&quot;,&#10;  &quot;user&quot;: [&#10;    {&#10;      &quot;first&quot;: &quot;John&quot;,&#10;      &quot;last&quot;: &quot;Smith&quot;&#10;    },&#10;    {&#10;      &quot;first&quot;: &quot;Alice&quot;,&#10;      &quot;last&quot;: &quot;White&quot;&#10;    }&#10;  ]&#10;}" />
+                <option name="method" value="PUT" />
+                <option name="path" value="my_index/_doc/1" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;query&quot;: {&#10;    &quot;nested&quot;: {&#10;      &quot;path&quot;: &quot;user&quot;,&#10;      &quot;query&quot;: {&#10;        &quot;bool&quot;: {&#10;          &quot;must&quot;: [&#10;            {&#10;              &quot;match&quot;: {&#10;                &quot;user.first&quot;: &quot;Alice&quot;&#10;              }&#10;            },&#10;            {&#10;              &quot;match&quot;: {&#10;                &quot;user.last&quot;: &quot;Smith&quot;&#10;              }&#10;            }&#10;          ]&#10;        }&#10;      }&#10;    }&#10;  }&#10;}" />
+                <option name="path" value="/my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;mappings&quot;: {&#10;    &quot;properties&quot;: {&#10;      &quot;user&quot;: {&#10;        &quot;type&quot;: &quot;nested&quot;&#10;      }&#10;    }&#10;  }&#10;}" />
+                <option name="method" value="PUT" />
+                <option name="path" value="my_index" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="method" value="DELETE" />
+                <option name="path" value="/my_index" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;mappings&quot;: {&#10;    &quot;properties&quot;: {&#10;      &quot;user&quot;: {&#10;        &quot;type&quot;: &quot;nested&quot;&#10;      }&#10;    }&#10;  }&#10;}" />
+                <option name="method" value="PUT" />
+                <option name="path" value="my_index" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;query&quot;: {&#10;    &quot;bool&quot;: {&#10;      &quot;must&quot;: [&#10;        {&#10;          &quot;match&quot;: {&#10;            &quot;user.first&quot;: &quot;Alice&quot;&#10;          }&#10;        }&#10;      ]&#10;    }&#10;  }&#10;}" />
+                <option name="path" value="my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;query&quot;: {&#10;    &quot;bool&quot;: {&#10;      &quot;must&quot;: [&#10;        {&#10;          &quot;match&quot;: {&#10;            &quot;user.first&quot;: &quot;Alice&quot;&#10;          }&#10;        },&#10;        {&#10;          &quot;match&quot;: {&#10;            &quot;user.last&quot;: &quot;Smith&quot;&#10;          }&#10;        }&#10;      ]&#10;    }&#10;  }&#10;}" />
+                <option name="path" value="my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;from&quot;: 0,&#10;  &quot;size&quot;: 50,&#10;  &quot;query&quot;: {&#10;    &quot;match_all&quot;: {}&#10;  }&#10;}" />
+                <option name="path" value="/my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;query&quot;: {&#10;    &quot;bool&quot;: {&#10;      &quot;must&quot;: [&#10;        {&#10;          &quot;match&quot;: {&#10;            &quot;user.first&quot;: &quot;Alice&quot;&#10;          }&#10;        },&#10;        {&#10;          &quot;match&quot;: {&#10;            &quot;user.last&quot;: &quot;Smith&quot;&#10;          }&#10;        }&#10;      ]&#10;    }&#10;  }&#10;}" />
+                <option name="path" value="my_index/_search" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="body" value="{&#10;  &quot;group&quot;: &quot;fans&quot;,&#10;  &quot;user&quot;: [&#10;    {&#10;      &quot;first&quot;: &quot;John&quot;,&#10;      &quot;last&quot;: &quot;Smith&quot;&#10;    },&#10;    {&#10;      &quot;first&quot;: &quot;Alice&quot;,&#10;      &quot;last&quot;: &quot;White&quot;&#10;    }&#10;  ]&#10;}" />
+                <option name="method" value="PUT" />
+                <option name="path" value="my_index/_doc/1" />
+              </HistoryRequest>
+              <HistoryRequest>
+                <option name="path" value="/_template/.ml-state" />
+              </HistoryRequest>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

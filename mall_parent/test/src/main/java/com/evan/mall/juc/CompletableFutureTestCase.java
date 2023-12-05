@@ -1,4 +1,4 @@
-package com.evan.mall;
+package com.evan.mall.juc;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
