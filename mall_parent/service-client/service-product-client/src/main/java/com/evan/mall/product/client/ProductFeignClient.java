@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.evan.mall.common.result.Result;
 import com.evan.mall.product.*;
 import com.evan.mall.product.client.impl.ProductDegradeFeignClient;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,4 +43,7 @@ public interface ProductFeignClient {
     @GetMapping("/api/product/getBaseCategoryList")
     Result<List<JSONObject>> getBaseCategoryList();
 
+    @GetMapping("/getTrademark/{tmId}")
+    @ApiOperation("根据tmId获取品牌信息")
+    BaseTrademark getTrademark(@PathVariable Long tmId);
 }

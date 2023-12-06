@@ -11,7 +11,7 @@ spring:
         namespace: ddb06978-954c-4a5e-a6aa-44e46e7e21f4
         file-extension: yaml
         shared-configs[0]:
-          data-id: common.yml
+          data-id: common.yaml
       discovery:
         server-addr: hadoop133:8848
         namespace: ddb06978-954c-4a5e-a6aa-44e46e7e21f4

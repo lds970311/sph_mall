@@ -10,7 +10,11 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.Date;
 import java.util.List;
 
-// Index = goods , Type = info  es 7.8.0 逐渐淡化type！  修改！
+/**
+ * indexName: 索引库名称
+ * shards: 分片数量
+ * replicas: 副本数量
+ */
 @Data
 @Document(indexName = "goods", shards = 3, replicas = 2)
 public class Goods {

@@ -38,6 +38,9 @@ public class ProductApiController {
     @Autowired
     private BaseAttrInfoService baseAttrInfoService;
 
+    @Autowired
+    private BaseTrademarkService baseTrademarkService;
+
     @GetMapping("/getSkuInfo/{skuId}")
     @ApiOperation("根据skuId查询sku和图片")
     public SkuInfo getSkuInfo(@PathVariable Long skuId) {
@@ -86,5 +89,12 @@ public class ProductApiController {
     public List<BaseAttrInfo> getAttrList(@PathVariable Long skuId) {
         return this.baseAttrInfoService.getAttrListBySkuId(skuId);
 
+    }
+
+    //给service-list使用
+    @GetMapping("/getTrademark/{tmId}")
+    @ApiOperation("根据tmId获取品牌信息")
+    public BaseTrademark getTrademark(@PathVariable Long tmId) {
+        return this.baseTrademarkService.getById(tmId);
     }
 }
