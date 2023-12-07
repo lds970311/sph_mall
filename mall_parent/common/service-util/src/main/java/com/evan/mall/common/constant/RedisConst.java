@@ -40,4 +40,7 @@ public class RedisConst {
 
     //  布隆过滤器使用！
     public static final String SKU_BLOOM_FILTER = "sku:bloom:filter";
+
+    //热点商品分数
+    public static final String SKU_HOT_SCORE = "hotScore:";
 }

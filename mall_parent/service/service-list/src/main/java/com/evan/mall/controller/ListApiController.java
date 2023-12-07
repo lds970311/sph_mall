@@ -2,15 +2,14 @@ package com.evan.mall.controller;
 
 import com.evan.mall.common.result.Result;
 import com.evan.mall.list.Goods;
+import com.evan.mall.list.SearchParam;
+import com.evan.mall.list.SearchResponseVo;
 import com.evan.mall.service.SearchService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/list")
@@ -40,4 +39,25 @@ public class ListApiController {
         return success ? Result.ok().message("商品上架成功！") : Result.fail().message("商品上架失败！");
     }
 
+
+    @GetMapping("/inner/lowerGoods/{skuId}")
+    @ApiOperation("商品下架")
+    public Result lowerGoods(@PathVariable Long skuId) {
+        boolean success = this.searchService.lowerGoods(skuId);
+        return success ? Result.ok().message("商品下架成功！") : Result.fail().message("商品下架失败！");
+    }
+
+    @GetMapping("/inner/incrHotScore/{skuId}")
+    @ApiOperation("更新商品热度")
+    public Result incrHotScore(@PathVariable Long skuId) {
+        boolean success = this.searchService.incrHotScore(skuId);
+        return success ? Result.ok().message("更新商品热度成功！") : Result.fail().message("更新商品热度失败！");
+    }
+
+    @PostMapping
+    @ApiOperation("商品搜索")
+    public Result<SearchResponseVo> list(@RequestBody SearchParam searchParam) {
+        SearchResponseVo searchResponseVo = this.searchService.searchGoods(searchParam);
+        return Result.ok(searchResponseVo);
+    }
 }

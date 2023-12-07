@@ -12,7 +12,7 @@ public class ListTest {
 
     @Test
     void testUpperGoods() {
-        for (long i = 21L; i < 32; i++) {
+        for (long i = 21L; i <= 32; i++) {
             this.searchService.upperGoods(i);
         }
     }

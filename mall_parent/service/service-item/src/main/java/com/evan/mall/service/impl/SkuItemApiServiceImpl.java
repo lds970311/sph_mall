@@ -1,5 +1,6 @@
 package com.evan.mall.service.impl;
 
+import com.evan.mall.client.ListFeignClient;
 import com.evan.mall.common.constant.RedisConst;
 import com.evan.mall.product.*;
 import com.evan.mall.product.client.ProductFeignClient;
@@ -28,6 +29,10 @@ public class SkuItemApiServiceImpl implements SkuItemApiService {
 
     @Autowired
     private ThreadPoolExecutor threadPoolExecutor;
+
+    @Qualifier("com.evan.mall.client.ListFeignClient")
+    @Autowired
+    private ListFeignClient listFeignClient;
 
     @Override
     public Map<String, Object> getSkuItemBySkuId(Long skuId) {
@@ -133,6 +138,11 @@ public class SkuItemApiServiceImpl implements SkuItemApiService {
             resultMap.put("skuAttrList", attrList);
         }, this.threadPoolExecutor);
 
+        //更新商品热度
+        CompletableFuture<Void> updateHostScore = CompletableFuture.runAsync(() -> {
+            this.listFeignClient.incrHotScore(skuId);
+        }, this.threadPoolExecutor);
+
         //多任务组合
         CompletableFuture.allOf(skuInfoCompletableFuture,
                 findBaseCategoryCompletableFuture,
@@ -140,7 +150,8 @@ public class SkuItemApiServiceImpl implements SkuItemApiService {
                 getSkuValueIdsMapCompletableFuture,
                 findPosterBySpuIdCompletableFuture,
                 skuPriceTask,
-                getAttrListCompletableFuture).join();
+                getAttrListCompletableFuture,
+                updateHostScore).join();
 
         return resultMap;
     }
