@@ -1,9 +1,12 @@
 package com.evan.mall.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.evan.mall.common.constant.RedisConst;
 import com.evan.mall.dao.GoodsDao;
 import com.evan.mall.list.Goods;
 import com.evan.mall.list.SearchAttr;
+import com.evan.mall.list.SearchParam;
+import com.evan.mall.list.SearchResponseVo;
 import com.evan.mall.product.BaseAttrInfo;
 import com.evan.mall.product.BaseCategoryView;
 import com.evan.mall.product.BaseTrademark;
@@ -12,12 +15,15 @@ import com.evan.mall.product.client.ProductFeignClient;
 import com.evan.mall.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -27,6 +33,9 @@ public class SearchServiceImpl implements SearchService {
     @Qualifier("com.evan.mall.product.client.ProductFeignClient")
     @Autowired
     private ProductFeignClient productFeignClient;
+
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
 
     @Override
     public boolean upperGoods(Long skuId) {
@@ -45,6 +54,7 @@ public class SearchServiceImpl implements SearchService {
         if (null != skuPrice) {
             goods.setPrice(skuPrice.doubleValue());
         }
+        goods.setId(skuId);
         goods.setDefaultImg(skuInfo.getSkuDefaultImg());
         goods.setTitle(skuInfo.getSkuName());
         goods.setCreateTime(new Date());
@@ -82,5 +92,56 @@ public class SearchServiceImpl implements SearchService {
         }
         this.goodsDao.save(goods);
         return true;
+    }
+
+    @Override
+    public boolean lowerGoods(Long skuId) {
+        if (skuId == null) {
+            return false;
+        }
+        this.goodsDao.deleteById(skuId);
+        return true;
+    }
+
+    /**
+     * 更新商品热度
+     *
+     * @param skuId
+     * @return
+     */
+    @Override
+    public boolean incrHotScore(Long skuId) {
+        if (skuId == null) {
+            return false;
+        }
+        //累计数据
+        ZSetOperations<Object, Object> zSetOperations = this.redisTemplate.opsForZSet();
+        Double hotScore = zSetOperations.incrementScore(RedisConst.SKU_HOT_SCORE, "skuId:" + skuId, 1);
+        //累计10次更新一次es
+        if (null != hotScore && hotScore % 10 == 0) {
+            //更新es
+            this.updateHotScore(skuId, Math.round(hotScore));
+        }
+        return true;
+    }
+
+
+    private void updateHotScore(Long skuId, long round) {
+        Optional<Goods> byId = this.goodsDao.findById(skuId);
+        byId.ifPresent(goods -> {
+            goods.setHotScore(round);
+            this.goodsDao.save(goods);
+        });
+    }
+
+    /**
+     * 根据条件搜索商品
+     *
+     * @param searchParam ：用户传递的检索条件
+     * @return ：返回检索结果
+     */
+    @Override
+    public SearchResponseVo searchGoods(SearchParam searchParam) {
+        return null;
     }
 }
