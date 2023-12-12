@@ -313,3 +313,23 @@ POST /goods/_search
     "price"
   ]
 }
+
+GET /goods/_search
+{
+  "suggest": {
+    "title_suggest": {
+      "text": "小米",
+      // 关键字
+      "completion": {
+        "field": "title",
+        // 补全查询的字段
+        "skip_duplicates": true,
+        // 跳过重复的
+        "size": 10
+        // 获取前10条结果
+      }
+    }
+  }
+}
+
+GET /goods
