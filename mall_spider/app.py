@@ -1,5 +1,6 @@
 from flask import Flask
 
+from spider.models import db
 from spider.views import product_blue
 from config.nacos_config import NACOS_CONFIG
 from nacos import NacosClient
@@ -20,6 +21,12 @@ def register_nacos():
 
     client.add_naming_instance(NACOS_CONFIG.get('service_name'), 'localhost', 15000, 'DEFAULT')
 
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:19970311@hadoop133:3307/users'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
+with app.app_context():
+    db.create_all()
 
 register_blue(app)
 register_nacos()
