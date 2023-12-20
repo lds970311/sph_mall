@@ -2,7 +2,26 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/gmall_admin/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/.idea/httpRequests" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/common/common-util/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/common/service-util/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/common/web-util/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/model/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/server-gateway/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/service-client/service-item-client/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/service-client/service-list-client/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/service-client/service-product-client/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/service/service-item/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/service/service-list/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/service/service-product/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_parent/web/web-pc/target" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_spider/.idea/ZeppelinRemoteNotebooks" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_spider/venv/Lib" />
+      <excludeFolder url="file://$MODULE_DIR$/mall_spider/venv/Scripts" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

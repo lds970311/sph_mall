@@ -12,5 +12,5 @@ def get_product():
 
 @product_blue.route('/open', methods=['get'])
 def open_baidu():
-    open_url("https://www.baidu.com")
+    open_url("https://www.jd.com")
     return "OK"
