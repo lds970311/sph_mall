@@ -50,3 +50,8 @@
 
 ## 3. 整体业务分析图
 ![img_1.png](img_1.png)
+
+## 4. 环境准备
+
+### 4.1 Mysql集群搭建
+https://www.modb.pro/db/387917
