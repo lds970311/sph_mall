@@ -16,6 +16,7 @@
         <module>service-client</module>
         <module>web</module>
         <module>test</module>
+        <module>reactive</module>
     </modules>
 
     <!--引入spring boot 父工程-->
