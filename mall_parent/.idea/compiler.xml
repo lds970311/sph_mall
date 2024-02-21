@@ -15,6 +15,7 @@
         <module name="service-item-client" />
         <module name="service-list" />
         <module name="service-util" />
+        <module name="reactive" />
         <module name="service-product" />
         <module name="web-util" />
         <module name="service-list-client" />
@@ -28,6 +29,7 @@
       <module name="common" options="" />
       <module name="common-util" options="-parameters" />
       <module name="model" options="-parameters" />
+      <module name="reactive" options="-parameters" />
       <module name="server-gateway" options="-parameters" />
       <module name="service" options="" />
       <module name="service-client" options="" />
